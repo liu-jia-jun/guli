@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author 刘佳俊
  */
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.service_base","com.guili"})
+@ComponentScan(basePackages = {"com.service_base","com.guili","com.commonutils"})
 public class EduApplication {
 
     public static void main(String[] args) {
