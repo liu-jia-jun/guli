@@ -1,12 +1,18 @@
 package com.guili.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.commonutils.Result;
 import com.guili.eduservice.entity.EduTeacher;
+import com.guili.eduservice.entity.vo.TeacherQuery;
 import com.guili.eduservice.service.EduTeacherService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,16 +50,90 @@ public class EduTeacherController {
      */
     @GetMapping("/findAll")
     @ApiOperation("查询所有教师")
-    public List<EduTeacher> test(){
-        return eduTeacherService.list(null);
+    public Result test(){
+        return Result.ok().data("items",eduTeacherService.list(null));
     }
 
     @DeleteMapping("{id}")
     @ApiOperation("逻辑删除")
-    public boolean removeTeacher(@ApiParam(name = "id",value = "讲师ID",required = true) @PathVariable("id") String id){
-        return eduTeacherService.removeById(id);
+    public Result removeTeacher(@ApiParam(name = "id",value = "讲师ID",required = true) @PathVariable("id") String id){
+
+        if(eduTeacherService.removeById(id)){
+            return Result.ok();
+        }else {
+            return Result.error();
+        }
+
     }
 
+
+    /**
+     * 通过获取的页面数和页面中需要显示的数据条数进行分页查询
+     * @param current
+     * @param limit
+     * @return
+     */
+    @GetMapping("pageTeacher/{current}/{limit}")
+    public Result pageListTeacher(@PathVariable("current") long current,
+                                  @PathVariable("limit") long limit){
+        // 创建page对象
+        Page<EduTeacher> pageTeacher = new Page<>();
+
+        // 调用方法实现分页
+        // 调用方法时，底层封装，把分页所有数据封装到pageTeacher对象中
+
+        eduTeacherService.page(pageTeacher,null);
+
+        long total = pageTeacher.getTotal();// 得到总记录数
+
+        List<EduTeacher> teacherList = pageTeacher.getRecords();// 得到分页中数据的list集合
+
+
+        return Result.ok().data("total",total).data("rows",teacherList);
+
+    }
+
+    // 条件分页查询
+    @PostMapping("pageTeacherCondition/{current}/{limit}")
+    public Result pageTeacherCondition(@PathVariable("cuttent") long current,
+                                       @PathVariable("limit") long limit,
+                                       @RequestBody TeacherQuery teacherQuery){
+        // 创建page对象
+        Page<EduTeacher> pageTeacher = new Page<>(current,limit);
+
+        //构建条件
+        QueryWrapper<EduTeacher> wrapper = new QueryWrapper<>();
+        // 多条件组合查询
+        // mybatis学过 动态sql
+        String name = teacherQuery.getName();
+        Integer level = teacherQuery.getLevel();
+        String begin = teacherQuery.getBegin();
+        String end = teacherQuery.getEnd();
+        //判断条件值是否为空，如果不为空拼接条件
+        if(StringUtils.isNotEmpty(name)) {
+            //构建条件
+            wrapper.like("name",name);
+        }
+        if(!StringUtils.isNotEmpty(level.toString())) {
+            wrapper.eq("level",level);
+        }
+        if(!StringUtils.isNotEmpty(begin)) {
+            wrapper.ge("gmt_create",begin);
+        }
+        if(!StringUtils.isNotEmpty(end)) {
+            wrapper.le("gmt_create",end);
+        }
+
+
+        //调用方法实现条件查询分页
+        eduTeacherService.page(pageTeacher,wrapper);
+        long total = pageTeacher.getTotal();// 得到总记录数
+
+        List<EduTeacher>  teacherList = pageTeacher.getRecords();// 得到分页中数据的list集合
+
+
+        return Result.ok().data("total",total).data("rows",teacherList);
+    }
 
 
 

@@ -13,6 +13,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @author 刘佳俊
+ *
+ * Swagger
+ *
+ * swagger 的访问地址：http://localhost:8000/swagger-ui.html
+ *
+ *
  */
 @Configuration//配置类
 @EnableSwagger2 //swagger注解
