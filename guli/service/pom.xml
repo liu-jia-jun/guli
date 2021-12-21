@@ -28,6 +28,12 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <dependencies>
+<!--        引入common 模块下的service_base模块，这样才能使用在service_base模块中配置的swagger-->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>service_base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
