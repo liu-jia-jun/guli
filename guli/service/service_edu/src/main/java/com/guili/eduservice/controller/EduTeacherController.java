@@ -9,10 +9,11 @@ import com.guili.eduservice.entity.vo.TeacherQuery;
 import com.guili.eduservice.service.EduTeacherService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -110,17 +111,17 @@ public class EduTeacherController {
         String begin = teacherQuery.getBegin();
         String end = teacherQuery.getEnd();
         //判断条件值是否为空，如果不为空拼接条件
-        if(StringUtils.isNotEmpty(name)) {
+        if(StringUtils.isEmpty(name)) {
             //构建条件
             wrapper.like("name",name);
         }
-        if(!StringUtils.isNotEmpty(level.toString())) {
+        if(!StringUtils.isEmpty(level)) {
             wrapper.eq("level",level);
         }
-        if(!StringUtils.isNotEmpty(begin)) {
+        if(!StringUtils.isEmpty(begin)) {
             wrapper.ge("gmt_create",begin);
         }
-        if(!StringUtils.isNotEmpty(end)) {
+        if(!StringUtils.isEmpty(end)) {
             wrapper.le("gmt_create",end);
         }
 
