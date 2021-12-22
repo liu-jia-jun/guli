@@ -96,7 +96,7 @@ public class EduTeacherController {
 
     // 条件分页查询
     @PostMapping("pageTeacherCondition/{current}/{limit}")
-    public Result pageTeacherCondition(@PathVariable("cuttent") long current,
+    public Result pageTeacherCondition(@PathVariable("current") long current,
                                        @PathVariable("limit") long limit,
                                        @RequestBody TeacherQuery teacherQuery){
         // 创建page对象
@@ -133,9 +133,20 @@ public class EduTeacherController {
         List<EduTeacher>  teacherList = pageTeacher.getRecords();// 得到分页中数据的list集合
 
 
+        // 链式编程，需要在方法中返回this
         return Result.ok().data("total",total).data("rows",teacherList);
     }
 
+
+    @PostMapping("addTeacher")
+    public Result addTeacher(@RequestBody EduTeacher eduTeacher){
+        boolean save = eduTeacherService.save(eduTeacher);
+        if(save){
+            return Result.ok();
+        }else{
+            return Result.error();
+        }
+    }
 
 
 

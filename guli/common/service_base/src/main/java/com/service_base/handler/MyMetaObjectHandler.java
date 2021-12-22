@@ -1,4 +1,4 @@
-package com.service_base.config;
+package com.service_base.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
@@ -16,10 +16,6 @@ import java.util.Date;
  * 1. 对应实体类中需要自动填充的字段需要添加注解 @TableField(fill = FieldFill.INSERT_UPDATE)
  *
  * 2. 创建一个类继承MetaObjectHandler并实现里面的方法
- *
- *
- *
- *
  *
  *
  */
