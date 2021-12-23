@@ -7,12 +7,10 @@ import com.commonutils.Result;
 import com.guili.eduservice.entity.EduTeacher;
 import com.guili.eduservice.entity.vo.TeacherQuery;
 import com.guili.eduservice.service.EduTeacherService;
+import com.service_base.exceptionhandler.GuliException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -147,6 +145,40 @@ public class EduTeacherController {
             return Result.error();
         }
     }
+
+    // 根据讲师ID进行查询
+    @GetMapping("getTeacher/{id}")
+    public Result getTeacher(@PathVariable("id") String id){
+        EduTeacher teacher = eduTeacherService.getById(id);
+        return Result.ok().data("teacher",teacher);
+    }
+
+
+    // 讲师修改功能
+    @PostMapping("updateTeacher")
+    public Result updateTeacher(@RequestBody EduTeacher eduTeacher){
+        boolean b = eduTeacherService.updateById(eduTeacher);
+        if(b){
+
+            return Result.ok();
+        }else{
+            return Result.error();
+        }
+    }
+
+    // 测试异常处理
+    @GetMapping("test")
+    public Result testException(){
+        try{
+            int i = 10/0;
+        }catch (Exception e){
+            // 手动抛出自定义异常，执行该自定义异常
+          throw new GuliException(20002,"宝，这里出错了");
+        }
+        return Result.ok();
+    }
+
+
 
 
 
