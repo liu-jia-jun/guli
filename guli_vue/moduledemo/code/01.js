@@ -1,3 +1,7 @@
+/**
+ * 
+ * es5 写法
+
 const fun1_1 = function() {
     console.log("fun1_1")
 }
@@ -13,4 +17,19 @@ const fun1_2 = function() {
 module.exports = {
     fun1_1,
     fun1_2
+}
+ 
+ 
+ */
+
+// es6写法
+
+export function fun1() {
+    console.log("es6模块化写法")
+}
+
+export default {
+    fun2() {
+        console.log("es6模块第二种写法-推荐")
+    }
 }
