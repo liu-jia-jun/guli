@@ -1,6 +1,7 @@
 package com.service_base.exceptionhandler;
 
 import com.commonutils.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @author 刘佳俊
  */
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     // 所有异常
@@ -25,6 +27,8 @@ public class GlobalExceptionHandler {
     // 特定异常
     @ExceptionHandler(GuliException.class)
     public Result error(GuliException e){
+        // 日志文件
+        log.error(e.getMsg());
         e.printStackTrace();
         return Result.error().code(e.getCode()).message(e.getMsg());
     }

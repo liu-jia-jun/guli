@@ -49,7 +49,7 @@ public class EduTeacherController {
      */
     @GetMapping("/findAll")
     @ApiOperation("查询所有教师")
-    public Result test(){
+    public Result findAll(){
         return Result.ok().data("items",eduTeacherService.list(null));
     }
 
@@ -64,7 +64,6 @@ public class EduTeacherController {
         }
 
     }
-
 
     /**
      * 通过获取的页面数和页面中需要显示的数据条数进行分页查询
