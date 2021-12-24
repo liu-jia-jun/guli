@@ -34,3 +34,5 @@
 # webpack
 + npm install -g webpack webpack-cli
 > 全局安装webpack插件和webpack的客户端
++ webpack --mode=development
+> 打包，以生产环境打包
