@@ -30,3 +30,7 @@
 
 > 根据文件夹转码
 >> ```babel es6文件夹地址 -d 转换生成的文件夹地址```
+
+# webpack
++ npm install -g webpack webpack-cli
+> 全局安装webpack插件和webpack的客户端

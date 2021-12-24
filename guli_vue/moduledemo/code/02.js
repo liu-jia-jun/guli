@@ -14,4 +14,7 @@ js1.fun1_1()
 
 // es6写法
 
-import { fun1 } from "./01";
+// 引入模块
+import m from "./01";
+// 调用方法
+m.fun2()

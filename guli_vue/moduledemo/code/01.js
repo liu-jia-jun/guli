@@ -28,6 +28,8 @@ export function fun1() {
     console.log("es6模块化写法")
 }
 
+
+// 推荐
 export default {
     fun2() {
         console.log("es6模块第二种写法-推荐")
