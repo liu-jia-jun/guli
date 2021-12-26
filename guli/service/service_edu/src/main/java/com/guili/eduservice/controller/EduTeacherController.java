@@ -94,6 +94,7 @@ public class EduTeacherController {
 
     // 条件分页查询
     @PostMapping("pageTeacherCondition/{current}/{limit}")
+    @CrossOrigin
     public Result pageTeacherCondition(@PathVariable("current") long current,
                                        @PathVariable("limit") long limit,
                                        @RequestBody TeacherQuery teacherQuery){

@@ -2,9 +2,9 @@ import request from "@/utils/request"
 
 export default {
 
-    getTeacherList(current, limit, teacherQuery) {
+    getTeacherListPage(current, limit, teacherQuery) {
         return request({
-            url: `pageTeacherCondition/${current}/${limit}`,
+            url: `/eduservice/edu-teacher/pageTeacherCondition/${current}/${limit}`,
             method: 'post',
             data: teacherQuery
 
