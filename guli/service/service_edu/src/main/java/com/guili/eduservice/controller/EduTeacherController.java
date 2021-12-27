@@ -10,6 +10,7 @@ import com.guili.eduservice.service.EduTeacherService;
 import com.service_base.exceptionhandler.GuliException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/eduservice/edu-teacher")
 @CrossOrigin// 用于解决跨域问题
+
 public class EduTeacherController {
 
     @Autowired
@@ -54,7 +56,7 @@ public class EduTeacherController {
         return Result.ok().data("items",eduTeacherService.list(null));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation("逻辑删除")
     public Result removeTeacher(@ApiParam(name = "id",value = "讲师ID",required = true) @PathVariable("id") String id){
 
@@ -72,11 +74,11 @@ public class EduTeacherController {
      * @param limit
      * @return
      */
-    @GetMapping("pageTeacher/{current}/{limit}")
+    @GetMapping("/pageTeacher/{current}/{limit}")
     public Result pageListTeacher(@PathVariable("current") long current,
                                   @PathVariable("limit") long limit){
         // 创建page对象
-        Page<EduTeacher> pageTeacher = new Page<>();
+        Page<EduTeacher> pageTeacher = new Page<>(current,limit);
 
         // 调用方法实现分页
         // 调用方法时，底层封装，把分页所有数据封装到pageTeacher对象中
@@ -93,7 +95,7 @@ public class EduTeacherController {
     }
 
     // 条件分页查询
-    @PostMapping("pageTeacherCondition/{current}/{limit}")
+    @PostMapping("/pageTeacherCondition/{current}/{limit}")
     @CrossOrigin
     public Result pageTeacherCondition(@PathVariable("current") long current,
                                        @PathVariable("limit") long limit,
@@ -109,8 +111,13 @@ public class EduTeacherController {
         Integer level = teacherQuery.getLevel();
         String begin = teacherQuery.getBegin();
         String end = teacherQuery.getEnd();
+
+
+        System.out.println("++++++++++++++++++++++++++"+teacherQuery);
+
+
         //判断条件值是否为空，如果不为空拼接条件
-        if(StringUtils.isEmpty(name)) {
+        if(!StringUtils.isEmpty(name)) {
             //构建条件
             wrapper.like("name",name);
         }
@@ -123,13 +130,12 @@ public class EduTeacherController {
         if(!StringUtils.isEmpty(end)) {
             wrapper.le("gmt_create",end);
         }
-
-
         //调用方法实现条件查询分页
         eduTeacherService.page(pageTeacher,wrapper);
         long total = pageTeacher.getTotal();// 得到总记录数
 
         List<EduTeacher>  teacherList = pageTeacher.getRecords();// 得到分页中数据的list集合
+
 
 
         // 链式编程，需要在方法中返回this
