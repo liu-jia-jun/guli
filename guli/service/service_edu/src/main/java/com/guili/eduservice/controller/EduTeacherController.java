@@ -56,14 +56,14 @@ public class EduTeacherController {
         return Result.ok().data("items",eduTeacherService.list(null));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteTeacher/{id}")
     @ApiOperation("逻辑删除")
     public Result removeTeacher(@ApiParam(name = "id",value = "讲师ID",required = true) @PathVariable("id") String id){
 
         if(eduTeacherService.removeById(id)){
-            return Result.ok();
+            return Result.ok().message("移除成功");
         }else {
-            return Result.error();
+            return Result.error().message("操作失败");
         }
 
     }
@@ -130,6 +130,10 @@ public class EduTeacherController {
         if(!StringUtils.isEmpty(end)) {
             wrapper.le("gmt_create",end);
         }
+
+        wrapper.orderByDesc("gmt_Create");
+
+
         //调用方法实现条件查询分页
         eduTeacherService.page(pageTeacher,wrapper);
         long total = pageTeacher.getTotal();// 得到总记录数
@@ -143,7 +147,8 @@ public class EduTeacherController {
     }
 
 
-    @PostMapping("addTeacher")
+    // 添加讲师
+    @PostMapping("/addTeacher")
     public Result addTeacher(@RequestBody EduTeacher eduTeacher){
         boolean save = eduTeacherService.save(eduTeacher);
         if(save){
@@ -154,7 +159,7 @@ public class EduTeacherController {
     }
 
     // 根据讲师ID进行查询
-    @GetMapping("getTeacher/{id}")
+    @GetMapping("/getTeacher/{id}")
     public Result getTeacher(@PathVariable("id") String id){
         EduTeacher teacher = eduTeacherService.getById(id);
         return Result.ok().data("teacher",teacher);
@@ -162,7 +167,7 @@ public class EduTeacherController {
 
 
     // 讲师修改功能
-    @PostMapping("updateTeacher")
+    @PostMapping("/updateTeacher")
     public Result updateTeacher(@RequestBody EduTeacher eduTeacher){
         boolean b = eduTeacherService.updateById(eduTeacher);
         if(b){
