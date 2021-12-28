@@ -40,7 +40,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/eduservice/edu-teacher")
 @CrossOrigin// 用于解决跨域问题
-
 public class EduTeacherController {
 
     @Autowired
