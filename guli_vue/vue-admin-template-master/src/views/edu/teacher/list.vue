@@ -3,17 +3,25 @@
     <!-- 查询条件输入 -->
     <el-form :inline="true" :model="teacherQuery" class="demo-form-inline">
       <el-form-item label="讲师姓名">
-        <el-input size="mini" v-model="teacherQuery.name" placeholder="讲师姓名"></el-input>
+        <el-input
+          size="mini"
+          v-model="teacherQuery.name"
+          placeholder="讲师姓名"
+        ></el-input>
       </el-form-item>
       <el-form-item label="讲师头衔">
-        <el-select size="mini" v-model="teacherQuery.level" placeholder="讲师头衔">
+        <el-select
+          size="mini"
+          v-model="teacherQuery.level"
+          placeholder="讲师头衔"
+        >
           <el-option label="高级讲师" value="1"></el-option>
           <el-option label="首席讲师" value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-date-picker
-         size="mini"
+          size="mini"
           v-model="teacherQuery.begin"
           type="datetime"
           placeholder="选择截止时间"
@@ -23,7 +31,7 @@
       ></el-form-item>
       <el-form-item label="选择截止时间">
         <el-date-picker
-        size="mini"
+          size="mini"
           v-model="teacherQuery.end"
           type="datetime"
           placeholder="选择截止时间"
@@ -32,10 +40,14 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button size="mini" type="primary" @click="getTeacherListPage()">查询</el-button>
+        <el-button size="mini" type="primary" @click="getTeacherListPage()"
+          >查询</el-button
+        >
       </el-form-item>
-          <el-form-item>
-        <el-button size="mini" type="primary" @click="resetData()">清空</el-button>
+      <el-form-item>
+        <el-button size="mini" type="primary" @click="resetData()"
+          >清空</el-button
+        >
       </el-form-item>
     </el-form>
 
@@ -57,6 +69,25 @@
       </el-table-column>
       <el-table-column prop="gmtCreate" label="添加是时间"> </el-table-column>
       <el-table-column prop="sort" label="排序"> </el-table-column>
+      <el-table-column fixed="right" label="操作" width="100">
+        <template slot-scope="scope">
+          <router-link :to="'/teacher/update/' + scope.row.id">
+            <el-button
+              @click="updateTeacherByID(scope.row.id)"
+              type="text"
+              size="mini"
+              >修改</el-button
+            ></router-link
+          >
+
+          <el-button
+            type="text"
+            size="mini"
+            @click="deleteTeacherByID(scope.row.id)"
+            >删除</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
 
     <!-- 分页组件 -->
@@ -86,6 +117,7 @@ export default {
     };
   },
   methods: {
+ 
     getTeacherListPage(page = 1) {
       this.page = page;
       teacher
@@ -102,12 +134,45 @@ export default {
         });
     },
 
-    resetData(){
-      this.teacherQuery={}
-      this.getTeacherListPage()
-    }
+    resetData() {
+      this.teacherQuery = {};
+      this.getTeacherListPage();
+    },
+    deleteTeacherByID(id) {
+      this.$confirm("此操作将永久删除该讲师, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          teacher
+            .deleteTeacher(id)
+            .then((response) => {
+              this.$message({
+                type: "success",
+                message: "删除成功!",
+              });
+              this.getTeacherListPage(this.page);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+
+
+updateTeacherByID(id){
+    this.$router.push({path:`/teacher/update/${id}`})
+},
 
   },
+  
   created() {
     // 在页面完全渲染之前调用该方法，从后端获取数据
     this.getTeacherListPage();
