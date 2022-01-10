@@ -26,7 +26,7 @@ public class OssServiceImpl implements OssService {
         try {
             // 创建OSS实例。
             OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-
+//            public Result fileUploadByOss(MultipartFile  uploadFile){ 属性名字要和前端中的属性  field="uploadFile" 名字一致！
             //获取上传文件输入流
             InputStream inputStream = multipartFile.getInputStream();
             //获取文件名称

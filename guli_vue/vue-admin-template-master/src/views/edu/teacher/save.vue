@@ -2,6 +2,35 @@
   <div class="app-container">
     <h3>添加讲师</h3>
     <el-form ref="form" :model="teacher" label-width="80px">
+      <!-- 讲师头像 -->
+      <el-form-item label="讲师头像">
+        <!-- 头衔缩略图 -->
+        <pan-thumb :image="teacher.avatar" />
+        <!-- 文件上传按钮 -->
+        <el-button
+          type="primary"
+          icon="el-icon-upload"
+          @click="imagecropperShow = true"
+          >更换头像
+        </el-button>
+
+        <!--
+v-show：是否显示上传组件
+:key：类似于id，如果一个页面多个图片上传控件，可以做区分
+:url：后台上传的url地址
+@close：关闭上传组件
+@crop-upload-success：上传成功后的回调 -->
+        <image-cropper
+          v-show="imagecropperShow"
+          :width="300"
+          :height="300"
+          :key="imagecropperKey"
+          :url="BASE_API + '/eduoss/fileoss/uploadFile'"
+          field="multipartFile"
+          @close="close"
+          @crop-upload-success="cropSuccess"
+        />
+      </el-form-item>
       <el-form-item label="讲师名称">
         <el-input v-model="teacher.name"></el-input>
       </el-form-item>
@@ -31,21 +60,40 @@
 
 <script>
 import teacher from "@/api/edu/teacher";
-
+import ImageCropper from "@/components/ImageCropper";
+import PanThumb from "@/components/PanThumb";
 export default {
+  components: { ImageCropper, PanThumb },
   data() {
     return {
       teacher: {},
+      BASE_API: process.env.BASE_API, // 获取接口的API地址
+      imagecropperShow: false, // 是否显示上传组件
+      imagecropperKey: 0, // 上传组件id值
     };
   },
 
-  watch:{
+  watch: {
     // 路由监听，路由发生变化时，该方法就会执行
-    $route(to,from){
-      this.init()
-    }
+    $route(to, from) {
+      this.init();
+    },
   },
   methods: {
+    close() {
+      // 关闭上传组件的方法
+      this.imagecropperShow = false;
+      this.imagecropperKey = this.imagecropperKey + 1;
+    },
+    cropSuccess(data) {
+      // 上传成功之后的方法
+      this.imagecropperShow = false;
+      // 上传时候，在接口中返回图片地址，去保存到数据库中
+      this.imagecropperShow = false;
+      this.teacher.avatar = data.url;
+      // 上传成功后，重新打开上传组件时初始化组件，否则显示上一次的上传结果
+      this.imagecropperKey = this.imagecropperKey + 1;
+    },
     init() {
       if (this.$route.params && this.$route.params.id) {
         this.getInfo(this.$route.params.id);
@@ -53,10 +101,6 @@ export default {
         this.teacher = {};
       }
     },
-
-
-
-
 
     getInfo(id) {
       teacher.getInfo(id).then((response) => {
