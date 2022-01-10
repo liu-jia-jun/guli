@@ -11,7 +11,7 @@
           type="primary"
           icon="el-icon-upload"
           @click="imagecropperShow = true"
-          >更换头像
+          >上传头像
         </el-button>
 
         <!--
@@ -66,7 +66,9 @@ export default {
   components: { ImageCropper, PanThumb },
   data() {
     return {
-      teacher: {},
+      teacher: {
+        avatar:"https://liu-jia-jun.oss-cn-beijing.aliyuncs.com/2022/01/10/914ac2681dcd4e08af406a96f17f047dmultipartFile.png"
+      },
       BASE_API: process.env.BASE_API, // 获取接口的API地址
       imagecropperShow: false, // 是否显示上传组件
       imagecropperKey: 0, // 上传组件id值
