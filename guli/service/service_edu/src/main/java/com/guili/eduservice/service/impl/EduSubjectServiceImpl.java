@@ -7,6 +7,7 @@ import com.guili.eduservice.listener.SubjectExcelListener;
 import com.guili.eduservice.mapper.EduSubjectMapper;
 import com.guili.eduservice.service.EduSubjectService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,13 +25,16 @@ import java.io.InputStream;
 @Service
 public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubject> implements EduSubjectService {
 
+    @Autowired
+    EduSubjectService eduSubjectService;
+
     @Override
     public void saveSubject(MultipartFile file) {
         try {
             InputStream in = file.getInputStream();
 
             // 调用方法进行读取excel文件中的数据
-            EasyExcel.read(in,SubjectData.class,new SubjectExcelListener()).sheet().doRead();
+            EasyExcel.read(in,SubjectData.class,new SubjectExcelListener(eduSubjectService)).sheet().doRead();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -12,5 +12,5 @@ public class SubjectData {
     private String oneSubjectName;
 
     @ExcelProperty(index = 1)
-    private String twoSubject;
+    private String twoSubjectName;
 }
