@@ -1,6 +1,8 @@
 package service_oss.controller;
 
 import com.commonutils.Result;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,14 +19,11 @@ public class OssController {
     private OssService ossService;
 
     @PostMapping("/uploadFile")
-    public Result uploadOssFile(MultipartFile multipartFile){
+    public Result uploadOssFile(MultipartFile file){
         // 获取上传文件 MultipartFile
-        String url = ossService.uploadFileAvatar(multipartFile);
+        String url = ossService.uploadFileAvatar(file);
+        System.out.println("+++++++++++++++"+url);
         return Result.ok().data("url",url);
     }
-    @GetMapping("/hello")
-    public Result test(){
-        System.out.println("hello world");
-        return Result.ok();
-    }
+
 }

@@ -21,17 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/eduservice/chapter")
 @CrossOrigin
 public class EduChapterController {
-    @Autowired
-    private EduCourseService eduCourseService;
 
-    // 添加课程基本信息的方法
-    @PostMapping("/addCourseInfo")
-    public Result addCourseInfo(@RequestBody CourseInfoForm courseInfoForm){
-
-        eduCourseService.saveCourseInfo(courseInfoForm);
-
-        return Result.ok();
-    }
 
 }
 

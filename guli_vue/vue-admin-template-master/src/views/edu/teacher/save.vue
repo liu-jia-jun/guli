@@ -26,7 +26,7 @@ v-show：是否显示上传组件
           :height="300"
           :key="imagecropperKey"
           :url="BASE_API + '/eduoss/fileoss/uploadFile'"
-          field="multipartFile"
+          field="file"
           @close="close"
           @crop-upload-success="cropSuccess"
         />
