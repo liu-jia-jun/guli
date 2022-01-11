@@ -82,9 +82,9 @@ export const constantRouterMap = [{
     {
         path: '/example',
         component: Layout,
-        redirect: '/example/table',
+        redirect: '/example/tree',
         name: 'Example',
-        meta: { title: 'Example', icon: 'example' },
+        meta: { title: '课程管理', icon: 'example' },
         children: [{
                 path: 'table',
                 name: 'Table',
