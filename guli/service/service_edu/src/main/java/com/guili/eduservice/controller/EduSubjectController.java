@@ -2,14 +2,14 @@ package com.guili.eduservice.controller;
 
 
 import com.commonutils.Result;
+import com.guili.eduservice.entity.vo.SubjectTree;
 import com.guili.eduservice.service.EduSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -32,6 +32,13 @@ public class EduSubjectController {
     public Result addSubject(MultipartFile filed){
         eduSubjectService.saveSubject(filed);
         return Result.ok();
+    }
+
+    // 课程分类列表（树形）
+    @GetMapping("/getAllSubject")
+    public Result getAllSubject(){
+        List<SubjectTree> list = eduSubjectService.getAllOneTwoSubject();
+        return Result.ok().data("list",list);
     }
 
 
