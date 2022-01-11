@@ -1,6 +1,7 @@
 package com.guili.eduservice.service.impl;
 
 import com.guili.eduservice.entity.EduCourse;
+import com.guili.eduservice.entity.vo.CourseInfoForm;
 import com.guili.eduservice.mapper.EduCourseMapper;
 import com.guili.eduservice.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -17,4 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse> implements EduCourseService {
 
+    @Override
+    public void saveCourseInfo(CourseInfoForm courseInfoForm) {
+        
+    }
 }

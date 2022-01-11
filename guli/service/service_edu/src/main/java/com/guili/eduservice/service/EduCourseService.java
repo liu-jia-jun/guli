@@ -2,6 +2,7 @@ package com.guili.eduservice.service;
 
 import com.guili.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.guili.eduservice.entity.vo.CourseInfoForm;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduCourseService extends IService<EduCourse> {
 
+    void saveCourseInfo(CourseInfoForm courseInfoForm);
 }

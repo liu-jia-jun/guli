@@ -1,9 +1,13 @@
 package com.guili.eduservice.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.extension.api.R;
+import com.commonutils.Result;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.guili.eduservice.entity.vo.CourseInfoForm;
+import com.guili.eduservice.service.EduCourseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -14,8 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-01-11
  */
 @RestController
-@RequestMapping("/eduservice/edu-chapter")
+@RequestMapping("/eduservice/chapter")
+@CrossOrigin
 public class EduChapterController {
+    @Autowired
+    private EduCourseService eduCourseService;
+
+    // 添加课程基本信息的方法
+    @PostMapping("/addCourseInfo")
+    public Result addCourseInfo(@RequestBody CourseInfoForm courseInfoForm){
+
+        eduCourseService.saveCourseInfo(courseInfoForm);
+
+        return Result.ok();
+    }
 
 }
 
