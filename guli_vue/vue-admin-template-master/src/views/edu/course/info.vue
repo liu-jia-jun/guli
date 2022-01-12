@@ -67,9 +67,11 @@
         />
       </el-form-item>
 
-      <!-- 课程简介 TODO -->
+      <!-- 课程简介-->
+      <el-form-item label="课程简介">
+        <tinymce :height="300" v-model="courseInfo.description" />
+      </el-form-item>
 
-    
       <!-- 课程封面-->
       <el-form-item label="课程封面">
         <el-upload
@@ -79,7 +81,7 @@
           :action="BASE_API + '/eduoss/fileoss/uploadFile'"
           class="avatar-uploader"
         >
-          <img :src="courseInfo.cover" width="200"    />
+          <img :src="courseInfo.cover" width="200" />
         </el-upload>
       </el-form-item>
       <el-form-item label="课程价格">
@@ -105,16 +107,27 @@
 </template>
 <script>
 import course from "@/api/edu/course";
+import Tinymce from "@/components/Tinymce";
+
 export default {
+  components: { Tinymce },
   data() {
     return {
       saveBtnDisabled: false, // 保存按钮是否禁用
-      courseInfo: { subjectId: "" ,
-      cover:"/static/01.jpg"},
+      courseInfo: {
+        title: "",
+        subjectId: "", //二级分类id
+        subjectParentId: "", //一级分类id
+        teacherId: "",
+        lessonNum: 0,
+        description: "",
+        cover: "/static/01.jpg",
+        price: 0
+      },
       teacherList: [],
       subjectOneList: [],
       subjectTwoList: [],
-      BASE_API: process.env.BASE_API, // 接口API地址
+      BASE_API: process.env.BASE_API // 接口API地址
     };
   },
 
@@ -161,28 +174,32 @@ export default {
 
     saveOrUpdate() {
       course.saveOrUpdate(this.courseInfo).then(
-        (response) => {
+        response => {
           this.$router.push({
-            path: "/edu/course/chapter/" + response.data.id,
+            path: "/edu/course/chapter/" + response.data.id
           });
         },
-        (error) => {}
+        error => {}
       );
     },
     getTeacherList() {
       course.getTeacherList().then(
-        (response) => {
+        response => {
           this.teacherList = response.data.items;
         },
-        (error) => {}
+        error => {}
       );
     },
     getSubjectList() {
-      course.getSubjectList().then((response) => {
+      course.getSubjectList().then(response => {
         this.subjectOneList = response.data.list;
-       
       });
-    },
-  },
+    }
+  }
 };
 </script>
+<style scoped>
+.tinymce-container {
+  line-height: 29px;
+}
+</style>

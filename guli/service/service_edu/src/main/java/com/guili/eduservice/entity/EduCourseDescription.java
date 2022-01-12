@@ -36,6 +36,9 @@ public class EduCourseDescription implements Serializable {
     @ApiModelProperty(value = "课程简介")
     private String description;
 
+
+ 
+
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
