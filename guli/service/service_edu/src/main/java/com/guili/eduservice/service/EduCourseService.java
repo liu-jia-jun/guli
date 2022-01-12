@@ -15,4 +15,8 @@ import com.guili.eduservice.entity.vo.CourseInfoForm;
 public interface EduCourseService extends IService<EduCourse> {
 
     String saveCourseInfo(CourseInfoForm courseInfoForm);
+
+    CourseInfoForm getCourseInfo(String id);
+
+    boolean updatCourseInfo(CourseInfoForm courseInfoForm);
 }

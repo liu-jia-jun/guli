@@ -30,5 +30,22 @@ public class EduCourseController {
 
         return Result.ok().data("id",id);
     }
+
+    @GetMapping("/getCourseInfo/{courseId}")
+    public Result getCourseByID(@PathVariable("courseId") String id){
+
+       CourseInfoForm courseInfoForm =  eduCourseService.getCourseInfo(id);
+
+        return Result.ok().data("courseInfo",courseInfoForm);
+    }
+
+    @PostMapping("/updateCourseInfo")
+    public Result updateCourseInfo(@RequestBody CourseInfoForm courseInfoForm){
+      boolean b =  eduCourseService.updatCourseInfo(courseInfoForm);
+      return b?Result.ok().data("msg","修改成功"):Result.error().data("msg","修改失败");
+    }
+
+
+
 }
 

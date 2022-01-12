@@ -37,7 +37,7 @@ public class EduCourseDescription implements Serializable {
     private String description;
 
 
- 
+
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

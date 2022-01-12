@@ -2,12 +2,7 @@
   <div class="app-container">
     <h2 style="text-align: center">发布新课程</h2>
 
-    <el-steps
-      :active="1"
-      process-status="wait"
-      align-center
-      style="margin-bottom: 40px"
-    >
+    <el-steps :active="1" process-status="wait" align-center style="margin-bottom: 40px">
       <el-step title="填写课程基本信息" />
       <el-step title="创建课程大纲" />
       <el-step title="提交审核" />
@@ -15,10 +10,7 @@
 
     <el-form label-width="120px">
       <el-form-item label="课程标题">
-        <el-input
-          v-model="courseInfo.title"
-          placeholder=" 示例：机器学习项目课：从基础到搭建项目视频课程。专业名称注意大小写"
-        />
+        <el-input v-model="courseInfo.title" placeholder=" 示例：机器学习项目课：从基础到搭建项目视频课程。专业名称注意大小写" />
       </el-form-item>
 
       <!-- 所属分类 TODO -->
@@ -90,24 +82,18 @@
           v-model="courseInfo.price"
           controls-position="right"
           placeholder="免费课程请设置为0元"
-        />
-        元
+        />元
       </el-form-item>
 
       <el-form-item>
-        <el-button
-          :disabled="saveBtnDisabled"
-          type="primary"
-          @click="saveOrUpdate"
-          >保存并下一步</el-button
-        >
+        <el-button :disabled="saveBtnDisabled" type="primary" @click="saveOrUpdate">保存并下一步</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script>
-import course from "@/api/edu/course";
-import Tinymce from "@/components/Tinymce";
+import course from '@/api/edu/course'
+import Tinymce from '@/components/Tinymce'
 
 export default {
   components: { Tinymce },
@@ -115,45 +101,79 @@ export default {
     return {
       saveBtnDisabled: false, // 保存按钮是否禁用
       courseInfo: {
-        title: "",
-        subjectId: "", //二级分类id
-        subjectParentId: "", //一级分类id
-        teacherId: "",
+        title: '',
+        subjectId: '', //二级分类id
+        subjectParentId: '', //一级分类id
+        teacherId: '',
         lessonNum: 0,
-        description: "",
-        cover: "/static/01.jpg",
-        price: 0
+        description: '',
+        cover: '/static/01.jpg',
+        price: 0,
       },
+      courseId: '',
       teacherList: [],
       subjectOneList: [],
       subjectTwoList: [],
-      BASE_API: process.env.BASE_API // 接口API地址
-    };
+      BASE_API: process.env.BASE_API, // 接口API地址
+    }
   },
 
   created() {
-    this.getTeacherList();
-    this.getSubjectList();
+    this.getTeacherList()
+    this.getSubjectList()
+    if (this.$route.params && this.$route.params.id) {
+      this.courseId = this.$route.params.id
+      //根据id获取课程基本信息
+      this.fetchCourseInfoById(this.courseId)
+    } else {
+      this.courseInfo = {
+        title: '',
+        subjectId: '', //二级分类id
+        subjectParentId: '', //一级分类id
+        teacherId: '',
+        lessonNum: 0,
+        description: '',
+        cover: '/static/01.jpg',
+        price: 0,
+      }
+    }
   },
 
   methods: {
+    fetchCourseInfoById(id) {
+      course.getCourseInfo(id).then((response) => {
+        this.courseInfo = response.data.courseInfo
+
+        // 初始化分类列表
+        course.getSubjectList().then((response) => {
+          this.subjectOneList = response.data.list
+          console.log(this.subjectOneList)
+          for (let i = 0; i < this.subjectOneList.length; i++) {
+            if (this.subjectOneList[i].id === this.courseInfo.subjectParentId) {
+              this.subjectTwoList = this.subjectOneList[i].children
+              console.log(this.subjectTwoList)
+            }
+          }
+        })
+      })
+    },
     handleAvatarSuccess(res, file) {
-      console.log(res); // 上传响应
-      console.log(URL.createObjectURL(file.raw)); // base64编码
-      this.courseInfo.cover = res.data.url;
+      console.log(res) // 上传响应
+      console.log(URL.createObjectURL(file.raw)) // base64编码
+      this.courseInfo.cover = res.data.url
     },
 
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message.error('上传头像图片只能是 JPG 格式!')
       }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error('上传头像图片大小不能超过 2MB!')
       }
-      return isJPG && isLt2M;
+      return isJPG && isLt2M
     },
     //点击某个一级分类，触发change，显示对应二级分类
     subjectLevelOneChanged(value) {
@@ -161,42 +181,61 @@ export default {
       //遍历所有的分类，包含一级和二级
       for (var i = 0; i < this.subjectOneList.length; i++) {
         //每个一级分类
-        var oneSubject = this.subjectOneList[i];
+        var oneSubject = this.subjectOneList[i]
         //判断：所有一级分类id 和 点击一级分类id是否一样
         if (value === oneSubject.id) {
           //从一级分类获取里面所有的二级分类
-          this.subjectTwoList = oneSubject.children;
+          this.subjectTwoList = oneSubject.children
           //把二级分类id值清空
-          this.courseInfo.subjectId = "";
+          this.courseInfo.subjectId = ''
         }
       }
     },
-
-    saveOrUpdate() {
-      course.saveOrUpdate(this.courseInfo).then(
-        response => {
+    saveCourseInfo() {
+      course.saveCourse(this.courseInfo).then(
+        (response) => {
           this.$router.push({
-            path: "/edu/course/chapter/" + response.data.id
-          });
+            path: '/edu/course/chapter/' + response.data.id,
+          })
         },
-        error => {}
-      );
+        (error) => {}
+      )
+    },
+    saveOrUpdate() {
+      if (!this.courseInfo.id) {
+        // 添加
+        this.saveCourseInfo()
+      } else {
+        // 修改
+        this.updateCourseInfo()
+      }
+    },
+
+    updateCourseInfo() {
+      course.updateCourse(this.courseInfo).then((response) => {
+        this.$message({
+          type: 'success',
+          message: '修改课程信息成功',
+        })
+        console.log(this.courseId)
+        this.$router.push({ path: '/edu/course/chapter/' + this.courseId })
+      })
     },
     getTeacherList() {
       course.getTeacherList().then(
-        response => {
-          this.teacherList = response.data.items;
+        (response) => {
+          this.teacherList = response.data.items
         },
-        error => {}
-      );
+        (error) => {}
+      )
     },
     getSubjectList() {
-      course.getSubjectList().then(response => {
-        this.subjectOneList = response.data.list;
-      });
-    }
-  }
-};
+      course.getSubjectList().then((response) => {
+        this.subjectOneList = response.data.list
+      })
+    },
+  },
+}
 </script>
 <style scoped>
 .tinymce-container {

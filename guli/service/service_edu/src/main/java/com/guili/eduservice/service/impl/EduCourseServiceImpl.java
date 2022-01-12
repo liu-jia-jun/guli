@@ -1,5 +1,6 @@
 package com.guili.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guili.eduservice.entity.EduCourse;
 import com.guili.eduservice.entity.EduCourseDescription;
 import com.guili.eduservice.entity.vo.CourseInfoForm;
@@ -13,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -32,24 +34,59 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Override
     public String saveCourseInfo(CourseInfoForm courseInfoForm) {
         EduCourse eduCourse = new EduCourse();
-        BeanUtils.copyProperties(courseInfoForm,eduCourse);
+        BeanUtils.copyProperties(courseInfoForm, eduCourse);
 
         int insert = baseMapper.insert(eduCourse);
-        if(insert<1){
+        if (insert < 1) {
             throw new GuliException(20001, "课程信息保存失败");
         }
         EduCourseDescription eduCourseDescription = new EduCourseDescription();
 
         String id = eduCourse.getId();
 
-        BeanUtils.copyProperties(courseInfoForm,eduCourseDescription);
+        BeanUtils.copyProperties(courseInfoForm, eduCourseDescription);
         eduCourseDescription.setId(id);
 
         boolean save = descriptionService.save(eduCourseDescription);
-        if(!save){
+        if (!save) {
             throw new GuliException(20001, "课程详情信息保存失败");
         }
         return id;
+    }
+
+    @Override
+    public CourseInfoForm getCourseInfo(String id) {
+        EduCourse eduCourse = baseMapper.selectById(id);
+
+        QueryWrapper<EduCourseDescription> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        EduCourseDescription description = descriptionService.getOne(wrapper);
+
+        CourseInfoForm courseInfoForm = new CourseInfoForm();
+
+        BeanUtils.copyProperties(eduCourse, courseInfoForm);
+        BeanUtils.copyProperties(description, courseInfoForm);
+
+        return courseInfoForm;
+
+    }
+
+    @Override
+
+    public boolean updatCourseInfo(CourseInfoForm courseInfoForm) {
+
+        EduCourse eduCourse = new EduCourse();
+        EduCourseDescription eduCourseDescription = new EduCourseDescription();
+        BeanUtils.copyProperties(courseInfoForm, eduCourse);
+        BeanUtils.copyProperties(courseInfoForm, eduCourseDescription);
+
+        int i = baseMapper.updateById(eduCourse);
+
+        boolean b = descriptionService.updateById(eduCourseDescription);
+
+        b = i > 0 && b == true ? true : false;
+
+        return b;
     }
 
 }
