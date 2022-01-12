@@ -3,7 +3,10 @@ package com.guili.eduservice.controller;
 
 import com.commonutils.Result;
 import com.guili.eduservice.entity.vo.CourseInfoForm;
+import com.guili.eduservice.entity.vo.CoursePublishVo;
 import com.guili.eduservice.service.EduCourseService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,28 +27,36 @@ public class EduCourseController {
 
     // 添加课程基本信息的方法
     @PostMapping("/addCourseInfo")
-    public Result addCourseInfo(@RequestBody CourseInfoForm courseInfoForm){
+    public Result addCourseInfo(@RequestBody CourseInfoForm courseInfoForm) {
 
         String id = eduCourseService.saveCourseInfo(courseInfoForm);
 
-        return Result.ok().data("id",id);
+        return Result.ok().data("id", id);
     }
 
     @GetMapping("/getCourseInfo/{courseId}")
-    public Result getCourseByID(@PathVariable("courseId") String id){
+    public Result getCourseByID(@PathVariable("courseId") String id) {
 
-       CourseInfoForm courseInfoForm =  eduCourseService.getCourseInfo(id);
+        CourseInfoForm courseInfoForm = eduCourseService.getCourseInfo(id);
 
-        return Result.ok().data("courseInfo",courseInfoForm);
+        return Result.ok().data("courseInfo", courseInfoForm);
     }
 
     @PostMapping("/updateCourseInfo")
-    public Result updateCourseInfo(@RequestBody CourseInfoForm courseInfoForm){
-      boolean b =  eduCourseService.updatCourseInfo(courseInfoForm);
-      return b?Result.ok().data("msg","修改成功"):Result.error().data("msg","修改失败");
+    public Result updateCourseInfo(@RequestBody CourseInfoForm courseInfoForm) {
+        boolean b = eduCourseService.updatCourseInfo(courseInfoForm);
+        return b ? Result.ok().data("msg", "修改成功") : Result.error().data("msg", "修改失败");
     }
 
+    @ApiOperation(value = "根据ID获取课程发布信息")
+    @GetMapping("course-publish-info/{id}")
+    public Result getCoursePublishVoById(
+            @ApiParam(name = "id", value = "课程ID", required = true)
+            @PathVariable String id) {
 
+        CoursePublishVo courseInfoForm = eduCourseService.getCoursePublishVoById(id);
+        return Result.ok().data("item", courseInfoForm);
+    }
 
 }
 

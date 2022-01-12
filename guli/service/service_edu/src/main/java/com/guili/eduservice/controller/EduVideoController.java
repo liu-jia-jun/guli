@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/eduservice/video")
+@CrossOrigin
 public class EduVideoController {
 
     @Autowired
@@ -26,7 +27,6 @@ public class EduVideoController {
         boolean save = eduVideoService.save(eduVideo);
         return Result.ok();
     }
-
 
     @GetMapping("/deleteVideo/{videoID}")
     public Result deleteVideo(@PathVariable("videoID") String id){
@@ -39,7 +39,7 @@ public class EduVideoController {
         boolean save = eduVideoService.updateById(eduVideo);
         return Result.ok();
     }
-    @GetMapping("/deleteVideo/{videoID}")
+    @GetMapping("/getVideo/{videoID}")
     public Result getVideo(@PathVariable("videoID") String id){
         EduVideo eduVideo = eduVideoService.getById(id);
         return Result.ok().data("video",eduVideo);

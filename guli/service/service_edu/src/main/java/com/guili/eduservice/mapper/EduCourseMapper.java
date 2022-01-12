@@ -2,6 +2,8 @@ package com.guili.eduservice.mapper;
 
 import com.guili.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.guili.eduservice.entity.vo.CoursePublishVo;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +13,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 刘佳俊
  * @since 2022-01-11
  */
+
 public interface EduCourseMapper extends BaseMapper<EduCourse> {
+
+
+     CoursePublishVo getCoursePublishVoById(String id);
+
 
 }

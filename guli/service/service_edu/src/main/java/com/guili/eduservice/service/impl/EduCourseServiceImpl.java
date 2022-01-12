@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guili.eduservice.entity.EduCourse;
 import com.guili.eduservice.entity.EduCourseDescription;
 import com.guili.eduservice.entity.vo.CourseInfoForm;
+import com.guili.eduservice.entity.vo.CoursePublishVo;
 import com.guili.eduservice.mapper.EduCourseMapper;
 import com.guili.eduservice.service.EduCourseDescriptionService;
 import com.guili.eduservice.service.EduCourseService;
@@ -30,6 +31,8 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     EduCourseDescriptionService descriptionService;
+    @Autowired
+    EduCourseMapper eduCourseMapper;
 
     @Override
     public String saveCourseInfo(CourseInfoForm courseInfoForm) {
@@ -87,6 +90,12 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         b = i > 0 && b == true ? true : false;
 
         return b;
+    }
+
+
+    @Override
+    public CoursePublishVo getCoursePublishVoById(String id) {
+        return eduCourseMapper.getCoursePublishVoById(id);
     }
 
 }
