@@ -3,7 +3,16 @@ import request from "@/utils/request"
 export default {
 
 
-    saveOrUpdate(courseInfoForm) {
+    updateCourse(courseInfoForm){
+        return request({
+            url: `/eduservice/course/updateCourseInfo`,
+            method: "post",
+            data: courseInfoForm
+        })
+    },
+
+
+    saveCourse(courseInfoForm) {
         return request({
             url: `/eduservice/course/addCourseInfo`,
             method: "post",
@@ -23,7 +32,14 @@ export default {
             method: "get",
 
         })
-    }
+    },
+    getCourseInfo(courseId) {
+        return request({
+            url: `/eduservice/course/getCourseInfo/${courseId}`,
+            method: "get",
+
+        })
+    },
 
 
 }
