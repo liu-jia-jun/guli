@@ -45,6 +45,7 @@ public class EduChapterController {
             @PathVariable String courseId){
 
         List<ChapterVo> chapterVoList = eduChapterService.nestedList(courseId);
+        System.out.println("ccccccccccccccc"+chapterVoList);
         return Result.ok().data("items", chapterVoList);
     }
 
@@ -69,7 +70,7 @@ public class EduChapterController {
         return Result.ok().data("chapter",chapter);
     }
 
-    @GetMapping("/deleteChapterInfo/{chapterId}")
+    @DeleteMapping("/deleteChapterInfo/{chapterId}")
     public Result deleteChapter(@PathVariable("chapterId") String id){
 
 
