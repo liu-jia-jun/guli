@@ -9,6 +9,7 @@ import com.guili.eduservice.mapper.EduChapterMapper;
 import com.guili.eduservice.service.EduChapterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.guili.eduservice.service.EduVideoService;
+import com.service_base.exceptionhandler.GuliException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,5 +87,20 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         }
 
         return chapterVoArrayList;
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("chapter_id",id);
+        int count = eduVideoService.count(wrapper);
+
+        if(count>0){
+            throw new GuliException(20001,"该章节存在小节，删除失败");
+        }else{
+            int i = baseMapper.deleteById(id);
+
+            return i>0;
+        }
     }
 }
