@@ -46,7 +46,7 @@
         </el-select>
       </el-form-item>
 
-      <el-button type="primary" icon="el-icon-search" @click="searchFetchData()">查询</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="fetchData()">查询</el-button>
       <el-button type="default" @click="resetData()">清空</el-button>
     </el-form>
     <!-- 表格显示区域，：data="需要显示的数据，格式为一个元素为对象的数组" -->
@@ -103,7 +103,12 @@
           <router-link :to="'/edu/course/chapter/'+scope.row.id">
             <el-button type="text" size="mini" icon="el-icon-edit">编辑课程大纲</el-button>
           </router-link>
-          <el-button type="text" size="mini" icon="el-icon-delete">删除</el-button>
+          <el-button
+            type="text"
+            size="mini"
+            icon="el-icon-delete"
+            @click="deleteCourse(scope.row.id)"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -122,14 +127,14 @@
 
 <script>
 import course from '@/api/edu/course'
-
+// import teacher from '@/api/edu/teacher'
 export default {
   data() {
     return {
-      searchObj: {}, // 查询对象封装
+      searchObj: { subjectParentId: '', subjectId: '', title: '' }, // 查询对象封装
       list: [],
       page: 1,
-      limit: 5,
+      limit: 2,
       total: 0,
       subjectNestedList: [],
       subSubjectList: [],
@@ -138,13 +143,48 @@ export default {
     }
   },
   methods: {
-    // 初始化教师列表
-    initTeacherList() {
-      teacher.getList().then((response) => {
-        this.teacherList = response.data.items
-      })
+    //点击某个一级分类，触发change，显示对应二级分类
+    subjectLevelOneChanged(value) {
+      //value就是一级分类id值
+      //遍历所有的分类，包含一级和二级
+      var items = this.subjectNestedList
+      console.log(items)
+      for (var i = 0; i < items.length; i++) {
+        if (value === items[i].id) {
+          this.subSubjectList = items[i].children
+        }
+      }
     },
-    searchFetchData() {
+    deleteCourse(id) {
+      this.$confirm('此操作将永久删除该讲师, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          course
+            .deleteCourseByID(id)
+            .then((response) => {
+              this.$message({
+                type: 'success',
+                message: '删除成功!',
+              })
+              this.getPageListCourse(this.page)
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除',
+          })
+        })
+    },
+    // 展示列表
+    fetchData(page = 1) {
+      this.page = page
       course
         .searchCourse(this.page, this.limit, this.searchObj)
         .then((response) => {
@@ -154,24 +194,35 @@ export default {
           this.page = response.data.current
         })
     },
-    // 二级分类查询
-    subjectLevelOneChanged() {},
-    // 条件查询
-    fetchData() {},
+    // 初始化教师列表
+    initTeacherList() {
+      course.getTeacherList().then((response) => {
+        this.teacherList = response.data.items
+      })
+    },
+
     // 查询对象数据清空
     resetData() {
+      console.log(this.searchObj)
       this.searchObj = {}
-      this.getAllCourse()
+      this.getPageListCourse()
     },
     // 查询所有的课程信息
     getPageListCourse() {
       this.listLoading = true
+      this.page = 1
       course.getPageListCourse(this.page, this.limit).then((response) => {
         this.list = response.data.list
         this.total = response.data.total
         this.page = response.data.current
         this.listLoading = false
-        console.log(this.list)
+      })
+    },
+
+    initSubject() {
+      course.getSubjectList().then((response) => {
+        this.subjectNestedList = response.data.list
+        console.log(response.data)
       })
     },
   },
@@ -179,6 +230,8 @@ export default {
   created() {
     // 页面渲染时调用
     this.getPageListCourse()
+    this.initTeacherList()
+    this.initSubject()
   },
 }
 </script>

@@ -69,18 +69,17 @@ export default {
 
     searchCourse(current,limit,searchObj){
         return request({
-            url:`/eudservice/course/querySelectCourse/${current}/${limit}`,
+            url:`/eduservice/course/querySelectCourse/${current}/${limit}`,
             method:"post",
             data:searchObj
         })
         
     },
+ 
     deleteCourseByID(id){
         return request({
-            url:`/eudservice/course/deleteCourse/${current}/${limit}`,
-            method:"delete",
-             
+            url:`/eduservice/course/deleteCourse/${id}`,
+            method:"delete"
         })
-    }
-
+    },
 }

@@ -147,7 +147,7 @@ export default {
         // 初始化分类列表
         course.getSubjectList().then((response) => {
           this.subjectOneList = response.data.list
-          console.log(this.subjectOneList)
+
           for (let i = 0; i < this.subjectOneList.length; i++) {
             if (this.subjectOneList[i].id === this.courseInfo.subjectParentId) {
               this.subjectTwoList = this.subjectOneList[i].children
@@ -179,6 +179,7 @@ export default {
     subjectLevelOneChanged(value) {
       //value就是一级分类id值
       //遍历所有的分类，包含一级和二级
+      console.log(value)
       for (var i = 0; i < this.subjectOneList.length; i++) {
         //每个一级分类
         var oneSubject = this.subjectOneList[i]

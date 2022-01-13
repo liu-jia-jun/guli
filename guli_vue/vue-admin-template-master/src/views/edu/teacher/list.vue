@@ -90,7 +90,9 @@ export default {
   },
   methods: {
     getTeacherListPage(page = 1) {
+      console.log(this.page)
       this.page = page
+      console.log(this.page)
       teacher
         .getTeacherListPage(this.page, this.limit, this.teacherQuery)
         .then((response) => {
