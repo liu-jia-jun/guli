@@ -23,7 +23,7 @@ public class OssController {
     public Result uploadOssFile(MultipartFile file){
         // 获取上传文件 MultipartFile
         String url = ossService.uploadFileAvatar(file);
-        System.out.println("+++++++++++++++"+url);
+
         return Result.ok().data("url",url);
     }
 
