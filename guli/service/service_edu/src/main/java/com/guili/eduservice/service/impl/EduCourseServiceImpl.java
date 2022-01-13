@@ -1,21 +1,22 @@
 package com.guili.eduservice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.guili.eduservice.entity.EduCourse;
-import com.guili.eduservice.entity.EduCourseDescription;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.guili.eduservice.entity.*;
 import com.guili.eduservice.entity.vo.CourseInfoForm;
 import com.guili.eduservice.entity.vo.CoursePublishVo;
+import com.guili.eduservice.entity.vo.CourseQuery;
 import com.guili.eduservice.mapper.EduCourseMapper;
-import com.guili.eduservice.service.EduCourseDescriptionService;
-import com.guili.eduservice.service.EduCourseService;
+import com.guili.eduservice.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.service_base.exceptionhandler.GuliException;
-import org.apache.poi.ss.formula.functions.BaseNumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,9 +31,17 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
 
     @Autowired
-    EduCourseDescriptionService descriptionService;
+    private EduCourseDescriptionService descriptionService;
     @Autowired
-    EduCourseMapper eduCourseMapper;
+    private EduCourseMapper eduCourseMapper;
+
+    @Autowired
+    private EduVideoService eduVideoService;
+    @Autowired
+    private EduChapterService eduChapterService;
+    @Autowired
+    private EduSubjectService eduSubjectService;
+
 
     @Override
     public String saveCourseInfo(CourseInfoForm courseInfoForm) {
@@ -96,6 +105,66 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Override
     public CoursePublishVo getCoursePublishVoById(String id) {
         return eduCourseMapper.getCoursePublishVoById(id);
+    }
+
+    @Override
+    public List<EduCourse> getAllCourse() {
+        return baseMapper.selectList(null);
+    }
+
+    @Override
+    public Page<EduCourse> querySelectCourse(Long current, Long limit, CourseQuery courseQuery) {
+        Page<EduCourse> eduCoursePage = new Page<>(current, limit);
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper();
+        String subjectId = courseQuery.getSubjectId();
+        String teacherId = courseQuery.getTeacherId();
+        String title = courseQuery.getTitle();
+        String subjectParentId = courseQuery.getSubjectParentId();
+        if (!StringUtils.isEmpty(subjectParentId)) {
+            wrapper.eq("subject_parent_id", subjectParentId);
+        }
+        if (!StringUtils.isEmpty(title)) {
+            wrapper.eq("title", title);
+        }
+        if (!StringUtils.isEmpty(teacherId)) {
+            wrapper.eq("teacher_id", teacherId);
+        }
+        if (!StringUtils.isEmpty(subjectId)) {
+            wrapper.eq("subject_id", subjectId);
+        }
+        baseMapper.selectPage(eduCoursePage, wrapper);
+        return eduCoursePage;
+
+
+    }
+
+    @Override
+    public Page<EduCourse> getPageListCourse(Long current, Long limit) {
+        Page<EduCourse> eduCoursePage = new Page<>(current, limit);
+        this.page(eduCoursePage, null);
+        return eduCoursePage;
+
+    }
+
+    @Override
+    public boolean deleteCourseById(String id) {
+        // video
+        QueryWrapper<EduVideo> wrapper = new QueryWrapper();
+        wrapper.eq("course_id", id);
+        boolean remove = eduVideoService.remove(wrapper);
+        // chapter
+        QueryWrapper<EduChapter> wrapper1 = new QueryWrapper();
+        wrapper1.eq("course_id", id);
+        boolean remove1 = eduChapterService.remove(wrapper1);
+
+
+        // description
+        boolean remove3 = descriptionService.removeById(id);
+        // course
+        boolean b = this.removeById(id);
+
+        return remove & remove1 & remove3 & b;
+
     }
 
 }

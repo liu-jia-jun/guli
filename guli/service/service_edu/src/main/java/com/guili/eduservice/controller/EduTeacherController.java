@@ -10,7 +10,6 @@ import com.guili.eduservice.service.EduTeacherService;
 import com.service_base.exceptionhandler.GuliException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -135,6 +134,7 @@ public class EduTeacherController {
 
         //调用方法实现条件查询分页
         eduTeacherService.page(pageTeacher,wrapper);
+
         long total = pageTeacher.getTotal();// 得到总记录数
 
         List<EduTeacher>  teacherList = pageTeacher.getRecords();// 得到分页中数据的list集合

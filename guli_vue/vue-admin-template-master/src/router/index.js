@@ -108,7 +108,7 @@ export const constantRouterMap = [{
         name: 'course',
         meta: { title: '课程管理', icon: 'example' },
         children: [{
-                path: '/list',
+                path: 'list',
                 name: 'EduCourseList',
                 component: () =>
                     import ('@/views/edu/course/list'),

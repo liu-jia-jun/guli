@@ -1,14 +1,19 @@
 package com.guili.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.commonutils.Result;
+import com.guili.eduservice.entity.EduCourse;
 import com.guili.eduservice.entity.vo.CourseInfoForm;
 import com.guili.eduservice.entity.vo.CoursePublishVo;
+import com.guili.eduservice.entity.vo.CourseQuery;
 import com.guili.eduservice.service.EduCourseService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -53,10 +58,57 @@ public class EduCourseController {
     public Result getCoursePublishVoById(
             @ApiParam(name = "id", value = "课程ID", required = true)
             @PathVariable String id) {
-
         CoursePublishVo courseInfoForm = eduCourseService.getCoursePublishVoById(id);
-        return Result.ok().data("item", courseInfoForm);
+        return Result.ok().data("coursePublish", courseInfoForm);
     }
 
+    // 课程的最终发布
+    @PostMapping("/publishCourse/{id}")
+    public Result publicCourse(@PathVariable("id") String id) {
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(id);
+        eduCourse.setStatus("Normal");
+        eduCourseService.updateById(eduCourse);
+        return Result.ok();
+    }
+
+
+    // 课程列表
+    @GetMapping("/getAllCourse")
+    public Result getAllCourse() {
+        List<EduCourse> courseList = eduCourseService.getAllCourse();
+
+        return Result.ok().data("list", courseList);
+    }
+
+    // 课程列表分页查询
+    @GetMapping("/getPageListCourse/{current}/{limit}")
+    public Result getPageListCourse(@PathVariable("current") long current,
+                                    @PathVariable("limit") long limit) {
+        Page<EduCourse> eduCoursePage = eduCourseService.getPageListCourse(current, limit);
+        List<EduCourse> list = eduCoursePage.getRecords();
+        long current1 = eduCoursePage.getCurrent();
+        long total = eduCoursePage.getTotal();
+        return Result.ok().data("list", list).data("current",current1).data("total",total);
+    }
+
+    // 课程列表的条件查询
+    @PostMapping("/querySelectCourse/{current}/{limit}")
+    public Result querySelectCourse(@RequestBody CourseQuery courseQuery,
+                                    @PathVariable("current") long current,
+                                    @PathVariable("limit") long limit) {
+        Page<EduCourse> eduCoursesPage = eduCourseService.querySelectCourse(current,limit,courseQuery);
+        List<EduCourse> eduCourse = eduCoursesPage.getRecords();
+        long current1 = eduCoursesPage.getCurrent();
+        long total = eduCoursesPage.getTotal();
+        return Result.ok().data("list", eduCourse).data("current",current1).data("total",total);
+    }
+
+
+    @DeleteMapping("/deleteCourse/{courseId}")
+    public Result deleteCourse(@PathVariable("courseId") String id){
+        eduCourseService.deleteCourseById(id);
+        return Result.ok();
+    }
 }
 
