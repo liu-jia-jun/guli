@@ -3,14 +3,14 @@
     <!-- 幻灯片 开始 -->
     <div v-swiper:mySwiper="swiperOption">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background: #040B1B;">
-          <a target="_blank" href="/">
-            <img src="~/assets/photo/banner/1525939573202.jpg" alt="首页banner" />
-          </a>
-        </div>
-        <div class="swiper-slide" style="background: #040B1B;">
-          <a target="_blank" href="/">
-            <img src="~/assets/photo/banner/1525939573202.jpg" alt="首页banner" />
+        <div
+          v-for="banner in bannerList"
+          :key="banner.id"
+          class="swiper-slide"
+          style="background: #040B1B;"
+        >
+          <a target="_blank" :href="banner.linkUrl">
+            <img width="100%" :src="banner.imageUrl" :alt="banner.title" />
           </a>
         </div>
       </div>
@@ -368,6 +368,7 @@
 </template>
 
 <script>
+import banner from '@/api/banner'
 export default {
   data() {
     return {

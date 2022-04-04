@@ -1,5 +1,6 @@
 package com.guli.service_cms.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.guli.service_cms.entity.CrmBanner;
 import com.guli.service_cms.mapper.CrmBannerMapper;
@@ -22,7 +23,10 @@ public class CrmBannerServiceImpl extends ServiceImpl<CrmBannerMapper, CrmBanner
 
     @Override
     public List<CrmBanner> selectIndexList() {
-        return baseMapper.selectList(null);
+        QueryWrapper<CrmBanner> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        wrapper.last("limit 3");
+        return baseMapper.selectList(wrapper);
     }
 
     @Override
@@ -45,5 +49,5 @@ public class CrmBannerServiceImpl extends ServiceImpl<CrmBannerMapper, CrmBanner
         return baseMapper.selectById(id);
     }
 
-  
+
 }
