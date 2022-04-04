@@ -32,4 +32,10 @@ export default {
       
     })
   },
+  removeById(id) {
+    return request({
+      url: `/eduvod/filevod/${id}`,
+      method: 'delete'
+    })
+  }
 }

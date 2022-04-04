@@ -5,14 +5,11 @@
     <parent>
 
 
-
-
         <artifactId>guli</artifactId>
         <groupId>com.example</groupId>
         <version>0.0.1-SNAPSHOT</version>
 
     </parent>
-
 
 
     <modelVersion>4.0.0</modelVersion>
@@ -23,6 +20,8 @@
         <module>service_edu</module>
         <module>service_oss</module>
         <module>service_vod</module>
+        <module>service_acl</module>
+        <module>service_cms</module>
     </modules>
 
     <properties>
@@ -30,7 +29,7 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <dependencies>
-<!--        引入common 模块下的service_base模块，这样才能使用在service_base模块中配置的swagger-->
+        <!--        引入common 模块下的service_base模块，这样才能使用在service_base模块中配置的swagger-->
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>service_base</artifactId>
@@ -51,28 +50,28 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
-<!--        </dependency>-->
+        <!--        ribbon 用于负载均衡-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
 
-<!--        &lt;!&ndash;hystrix依赖，主要是用  @HystrixCommand &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>-->
-<!--        </dependency>-->
+        <!--hystrix依赖，主要是用  @HystrixCommand -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
 
-<!--        &lt;!&ndash;服务注册&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash;服务调用&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
-<!--        </dependency>-->
-
+        <!--服务注册-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!--服务调用-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
 
 
         <!--mybatis-plus-->

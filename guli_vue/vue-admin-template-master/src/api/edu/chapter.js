@@ -39,6 +39,6 @@ export default {
       method: 'post',
       data: chapter
     })
-  }
+  },
  
 }
