@@ -12,7 +12,7 @@
         <section class="fl t-infor-box c-desc-content">
           <div class="mt20 ml20">
             <section class="t-infor-pic">
-              <img src="~/assets/photo/teacher/1442297885942.jpg" />
+              <img src="~/assets/photo/teacher/1442297885942.jpg">
             </section>
             <h3 class="hLh30">
               <span class="fsize24 c-333">姚晨&nbsp;高级讲师</span>
@@ -51,72 +51,52 @@
               <li>
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img src="~/assets/photo/course/1442295455437.jpg" class="img-responsive" />
+                    <img src="~/assets/photo/course/1442295455437.jpg" class="img-responsive" >
                     <div class="cc-mask">
                       <a href="#" title="开始学习" target="_blank" class="comm-btn c-btn-1">开始学习</a>
                     </div>
                   </section>
                   <h3 class="hLh30 txtOf mt10">
-                    <a
-                      href="#"
-                      title="零基础入门学习Python课程学习"
-                      target="_blank"
-                      class="course-title fsize18 c-333"
-                    >零基础入门学习Python课程学习</a>
+                    <a href="#" title="零基础入门学习Python课程学习" target="_blank" class="course-title fsize18 c-333">零基础入门学习Python课程学习</a>
                   </h3>
                 </div>
               </li>
               <li>
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img src="~/assets/photo/course/1442295472860.jpg" class="img-responsive" />
+                    <img src="~/assets/photo/course/1442295472860.jpg" class="img-responsive" >
                     <div class="cc-mask">
                       <a href="#" title="开始学习" target="_blank" class="comm-btn c-btn-1">开始学习</a>
                     </div>
                   </section>
                   <h3 class="hLh30 txtOf mt10">
-                    <a
-                      href="#"
-                      title="影想力摄影小课堂"
-                      target="_blank"
-                      class="course-title fsize18 c-333"
-                    >影想力摄影小课堂</a>
+                    <a href="#" title="影想力摄影小课堂" target="_blank" class="course-title fsize18 c-333">影想力摄影小课堂</a>
                   </h3>
                 </div>
               </li>
               <li>
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img src="~/assets/photo/course/1442302831779.jpg" class="img-responsive" />
+                    <img src="~/assets/photo/course/1442302831779.jpg" class="img-responsive" >
                     <div class="cc-mask">
                       <a href="#" title="开始学习" target="_blank" class="comm-btn c-btn-1">开始学习</a>
                     </div>
                   </section>
                   <h3 class="hLh30 txtOf mt10">
-                    <a
-                      href="#"
-                      title="数学给宝宝带来的兴趣"
-                      target="_blank"
-                      class="course-title fsize18 c-333"
-                    >数学给宝宝带来的兴趣</a>
+                    <a href="#" title="数学给宝宝带来的兴趣" target="_blank" class="course-title fsize18 c-333">数学给宝宝带来的兴趣</a>
                   </h3>
                 </div>
               </li>
               <li>
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img src="~/assets/photo/course/1442295506745.jpg" class="img-responsive" />
+                    <img src="~/assets/photo/course/1442295506745.jpg" class="img-responsive" >
                     <div class="cc-mask">
                       <a href="#" title="开始学习" target="_blank" class="comm-btn c-btn-1">开始学习</a>
                     </div>
                   </section>
                   <h3 class="hLh30 txtOf mt10">
-                    <a
-                      href="#"
-                      title="国家教师资格考试专用"
-                      target="_blank"
-                      class="course-title fsize18 c-333"
-                    >国家教师资格考试专用</a>
+                    <a href="#" title="国家教师资格考试专用" target="_blank" class="course-title fsize18 c-333">国家教师资格考试专用</a>
                   </h3>
                 </div>
               </li>
@@ -130,5 +110,5 @@
   </div>
 </template>
 <script>
-export default {}
+export default {};
 </script>

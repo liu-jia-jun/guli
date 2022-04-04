@@ -5,7 +5,7 @@
       <section class="container">
         <h1 id="logo">
           <a href="#" title="谷粒学院">
-            <img src="~/assets/img/logo.png" width="100%" alt="谷粒学院" />
+            <img src="~/assets/img/logo.png" width="100%" alt="谷粒学院">
           </a>
         </h1>
         <div class="h-r-nsl">
@@ -52,7 +52,7 @@
                   height="30"
                   class="vam picImg"
                   alt
-                />
+                >
                 <span class="vam disIb" id="userName"></span>
               </a>
               <a href="javascript:void(0)" title="退出" onclick="exit();" class="ml5">退出</a>
@@ -62,7 +62,7 @@
           <aside class="h-r-search">
             <form action="#" method="post">
               <label class="h-r-s-box">
-                <input type="text" placeholder="输入你想学的课程" name="queryCourse.courseName" value />
+                <input type="text" placeholder="输入你想学的课程" name="queryCourse.courseName" value>
                 <button type="submit" class="s-btn">
                   <em class="icon18">&nbsp;</em>
                 </button>
@@ -77,8 +77,8 @@
       </section>
     </header>
     <!-- /公共头引入 -->
-
-    <nuxt />
+      
+    <nuxt/>
 
     <!-- 公共底引入 -->
     <footer id="footer">
@@ -113,12 +113,12 @@
           <aside class="fl col-3 tac mt15">
             <section class="gf-tx">
               <span>
-                <img src="~/assets/img/wx-icon.png" alt />
+                <img src="~/assets/img/wx-icon.png" alt>
               </span>
             </section>
             <section class="gf-tx">
               <span>
-                <img src="~/assets/img/wb-icon.png" alt />
+                <img src="~/assets/img/wb-icon.png" alt>
               </span>
             </section>
           </aside>
@@ -130,10 +130,10 @@
   </div>
 </template>
 <script>
-import '~/assets/css/reset.css'
-import '~/assets/css/theme.css'
-import '~/assets/css/global.css'
-import '~/assets/css/web.css'
+import "~/assets/css/reset.css";
+import "~/assets/css/theme.css";
+import "~/assets/css/global.css";
+import "~/assets/css/web.css";
 
-export default {}
+export default {};
 </script>

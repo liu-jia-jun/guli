@@ -19,7 +19,7 @@ import java.util.List;
  * @author 刘佳俊
  */
 @RestController
-@RequestMapping("/eduservice/index")
+@RequestMapping("/eduservice/indexfront")
 @CrossOrigin
 public class IndexController {
 

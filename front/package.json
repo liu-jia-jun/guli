@@ -1,8 +1,8 @@
 {
   "name": "guli",
   "version": "1.0.0",
-  "description": "线上教学项目",
-  "author": "刘佳俊",
+  "description": "谷粒学院前台网站",
+  "author": "Helen <55317332@qq.com>",
   "private": true,
   "scripts": {
     "dev": "nuxt",

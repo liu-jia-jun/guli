@@ -75,8 +75,7 @@
                 <a title="最新" href="#">最新</a>
               </li>
               <li class="current bg-orange">
-                <a title="价格" href="#">
-                  价格&nbsp;
+                <a title="价格" href="#">价格&nbsp;
                   <span>↓</span>
                 </a>
               </li>
@@ -95,11 +94,7 @@
               <li>
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img
-                      src="~/assets/photo/course/1442295592705.jpg"
-                      class="img-responsive"
-                      alt="听力口语"
-                    />
+                    <img src="~/assets/photo/course/1442295592705.jpg" class="img-responsive" alt="听力口语">
                     <div class="cc-mask">
                       <a href="/course/1" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                     </div>
@@ -122,11 +117,7 @@
               <li>
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img
-                      src="~/assets/photo/course/1442295581911.jpg"
-                      class="img-responsive"
-                      alt="Java精品课程"
-                    />
+                    <img src="~/assets/photo/course/1442295581911.jpg" class="img-responsive" alt="Java精品课程">
                     <div class="cc-mask">
                       <a href="/course/1" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                     </div>
@@ -149,11 +140,7 @@
               <li>
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img
-                      src="~/assets/photo/course/1442295604295.jpg"
-                      class="img-responsive"
-                      alt="C4D零基础"
-                    />
+                    <img src="~/assets/photo/course/1442295604295.jpg" class="img-responsive" alt="C4D零基础">
                     <div class="cc-mask">
                       <a href="/course/1" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                     </div>
@@ -180,17 +167,13 @@
                       src="~/assets/photo/course/1442302831779.jpg"
                       class="img-responsive"
                       alt="数学给宝宝带来的兴趣"
-                    />
+                    >
                     <div class="cc-mask">
                       <a href="/course/1" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                     </div>
                   </section>
                   <h3 class="hLh30 txtOf mt10">
-                    <a
-                      href="/course/1"
-                      title="数学给宝宝带来的兴趣"
-                      class="course-title fsize18 c-333"
-                    >数学给宝宝带来的兴趣</a>
+                    <a href="/course/1" title="数学给宝宝带来的兴趣" class="course-title fsize18 c-333">数学给宝宝带来的兴趣</a>
                   </h3>
                   <section class="mt10 hLh20 of">
                     <span class="fr jgTag bg-green">
@@ -211,7 +194,7 @@
                       src="~/assets/photo/course/1442295455437.jpg"
                       class="img-responsive"
                       alt="零基础入门学习Python课程学习"
-                    />
+                    >
                     <div class="cc-mask">
                       <a href="/course/1" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                     </div>
@@ -242,17 +225,13 @@
                       src="~/assets/photo/course/1442295570359.jpg"
                       class="img-responsive"
                       alt="MySql从入门到精通"
-                    />
+                    >
                     <div class="cc-mask">
                       <a href="/course/1" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                     </div>
                   </section>
                   <h3 class="hLh30 txtOf mt10">
-                    <a
-                      href="/course/1"
-                      title="MySql从入门到精通"
-                      class="course-title fsize18 c-333"
-                    >MySql从入门到精通</a>
+                    <a href="/course/1" title="MySql从入门到精通" class="course-title fsize18 c-333">MySql从入门到精通</a>
                   </h3>
                   <section class="mt10 hLh20 of">
                     <span class="fr jgTag bg-green">
@@ -269,11 +248,7 @@
               <li>
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img
-                      src="~/assets/photo/course/1442302852837.jpg"
-                      class="img-responsive"
-                      alt="搜索引擎优化技术"
-                    />
+                    <img src="~/assets/photo/course/1442302852837.jpg" class="img-responsive" alt="搜索引擎优化技术">
                     <div class="cc-mask">
                       <a href="/course/1" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                     </div>
@@ -296,11 +271,7 @@
               <li>
                 <div class="cc-l-wrap">
                   <section class="course-img">
-                    <img
-                      src="~/assets/photo/course/1442295379715.jpg"
-                      class="img-responsive"
-                      alt="20世纪西方音乐"
-                    />
+                    <img src="~/assets/photo/course/1442295379715.jpg" class="img-responsive" alt="20世纪西方音乐">
                     <div class="cc-mask">
                       <a href="/course/1" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
                     </div>
@@ -343,5 +314,5 @@
   </div>
 </template>
 <script>
-export default {}
+export default {};
 </script>

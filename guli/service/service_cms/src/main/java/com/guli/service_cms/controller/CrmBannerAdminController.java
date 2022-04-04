@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2022-04-04
  */
 @RestController
-@RequestMapping("/eduservice/banner")
+@RequestMapping("/service_cms/banner")
 @CrossOrigin
 public class CrmBannerAdminController {
 
