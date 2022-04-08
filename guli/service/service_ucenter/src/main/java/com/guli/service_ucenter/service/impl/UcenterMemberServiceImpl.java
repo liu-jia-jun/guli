@@ -115,10 +115,9 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
     }
 
     @Override
-    public LoginInfoVo getLoginInfo(String memberId) {
+    public UcenterMember getLoginInfo(String memberId) {
         UcenterMember member = baseMapper.selectById(memberId);
-        LoginInfoVo loginInfoVo = new LoginInfoVo();
-        BeanUtils.copyProperties(member, loginInfoVo);
-        return loginInfoVo;
+
+        return member;
     }
 }

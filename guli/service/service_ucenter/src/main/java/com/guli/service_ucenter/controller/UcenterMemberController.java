@@ -3,6 +3,7 @@ package com.guli.service_ucenter.controller;
 
 import com.commonutils.JwtUtils;
 import com.commonutils.Result;
+import com.guli.service_ucenter.entity.UcenterMember;
 import com.guli.service_ucenter.entity.vo.LoginInfoVo;
 import com.guli.service_ucenter.entity.vo.LoginVo;
 import com.guli.service_ucenter.entity.vo.RegisterVo;
@@ -50,8 +51,8 @@ public class UcenterMemberController {
     public Result getLoginInfo(HttpServletRequest request){
         try {
             String memberId = JwtUtils.getMemberIdByJwtToken(request);
-            LoginInfoVo loginInfoVo = memberService.getLoginInfo(memberId);
-            return Result.ok().data("item", loginInfoVo);
+            UcenterMember member = memberService.getLoginInfo(memberId);
+            return Result.ok().data("item", member);
         }catch (Exception e){
             e.printStackTrace();
             throw new GuliException(20001,"error");
