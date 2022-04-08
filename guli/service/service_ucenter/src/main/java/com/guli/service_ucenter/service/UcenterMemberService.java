@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @author 刘佳俊
  * @since 2022-04-06
  */
-@Service
+
 public interface UcenterMemberService extends IService<UcenterMember> {
 
     String login(LoginVo loginVo);

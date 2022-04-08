@@ -29,7 +29,7 @@
           <!-- / nav -->
           <ul class="h-r-login">
             <li id="no-login">
-              <a href="/sign" title="登录">
+              <a href="/login" title="登录">
                 <em class="icon18 login-icon">&nbsp;</em>
                 <span class="vam ml5">登录</span>
               </a>

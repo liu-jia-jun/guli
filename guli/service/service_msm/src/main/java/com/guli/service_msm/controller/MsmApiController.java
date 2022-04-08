@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @author 刘佳俊
  */
 @RestController
-@RequestMapping("/api/msm")
+@RequestMapping("/edumsm")
 @CrossOrigin //跨域
 public class MsmApiController {
 
@@ -30,20 +30,20 @@ public class MsmApiController {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    @GetMapping(value = "/send/{email}")
-    public Result code(@PathVariable("email") String email) {
-        String code = redisTemplate.opsForValue().get(email);
+    @GetMapping(value = "/send/{mobile}")// 注意这里的手机发短信用的是邮箱发邮件的形式实现的
+    public Result code(@PathVariable("mobile") String mobile) {
+        String code = redisTemplate.opsForValue().get(mobile);
         if(!StringUtils.isEmpty(code)) {
             return Result.ok();
         }
 
         code = RandomUtil.getFourBitRandom();
-        Map<String,Object> param = new HashMap<>();
+        Map<String,String> param = new HashMap<>();
         param.put("code", code);
 
-        boolean isSend = msmService.send(email, param);
+        boolean isSend = msmService.send(mobile, param);
         if(isSend) {
-            redisTemplate.opsForValue().set(email, code,5, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(mobile, code,5, TimeUnit.MINUTES);
             return Result.ok();
         } else {
             return Result.error().message("发送邮件失败");

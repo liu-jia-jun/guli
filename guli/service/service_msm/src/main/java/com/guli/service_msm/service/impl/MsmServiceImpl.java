@@ -19,10 +19,11 @@ public class MsmServiceImpl implements MsmService {
     private JavaMailSender javaMailSender;
     @Value("${sender.email}")
     private String sender;
-
+    @Value("${receiver.email}")
+    private String receiver;
 
     @Override
-    public boolean send(String email, Map<String, Object> param) {
+    public boolean send(String email, Map<String, String> param) {
         // 构建一个邮件对象
         SimpleMailMessage message = new SimpleMailMessage();
         // 设置邮件主题
@@ -31,7 +32,7 @@ public class MsmServiceImpl implements MsmService {
         message.setFrom(sender);
         // 设置邮件接收者，可以有多个接收者，中间用逗号隔开，以下类似
         // message.setTo("10*****16@qq.com","12****32*qq.com");
-        message.setTo(email);
+        message.setTo(receiver);
         // 设置邮件抄送人，可以有多个抄送人
 //        message.setCc("3142467441@qq.com");
         // 设置隐秘抄送人，可以有多个
@@ -39,7 +40,7 @@ public class MsmServiceImpl implements MsmService {
         // 设置邮件发送日期
         message.setSentDate(new Date());
         // 设置邮件的正文
-        message.setText("www.7k7k.com");
+        message.setText(param.get("code"));
         // 发送邮件
         javaMailSender.send(message);
         return true;

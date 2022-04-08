@@ -23,11 +23,14 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2022-04-06
  */
 @RestController
-@RequestMapping("/service_ucenter/ucenter-member")
+@RequestMapping("/ucenterservice/apimember")
+@CrossOrigin
 public class UcenterMemberController {
 
     @Autowired
     private UcenterMemberService memberService;
+
+
 
     @ApiOperation(value = "会员登录")
     @PostMapping("login")

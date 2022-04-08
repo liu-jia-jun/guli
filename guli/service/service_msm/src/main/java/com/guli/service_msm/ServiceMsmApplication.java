@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 /**
  * @author 刘佳俊
  */
-@ComponentScan({"com.guli"})
+@ComponentScan({"com.guli","com.service_base"})
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)//取消数据源自动配置
 public class ServiceMsmApplication {
     public static void main(String[] args) {

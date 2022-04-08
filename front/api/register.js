@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 export default {
-  //根据手机号码发送短信
+  //根据手机(邮箱)号码发送短信
   getMobile(mobile) {
     return request({
       url: `/edumsm/send/${mobile}`,
