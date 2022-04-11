@@ -4,8 +4,10 @@ package com.guli.service_edu.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.commonutils.Result;
+import com.guli.service_edu.entity.EduCourse;
 import com.guli.service_edu.entity.EduTeacher;
 import com.guli.service_edu.entity.vo.TeacherQuery;
+import com.guli.service_edu.service.EduCourseService;
 import com.guli.service_edu.service.EduTeacherService;
 import com.service_base.exceptionhandler.GuliException;
 import io.swagger.annotations.ApiOperation;
@@ -42,7 +44,10 @@ import java.util.List;
 public class EduTeacherController {
 
     @Autowired
-    EduTeacherService eduTeacherService;
+    private EduTeacherService eduTeacherService;
+
+    @Autowired
+    private EduCourseService courseService;
 
     /**
      * 查询教师列表
@@ -163,6 +168,8 @@ public class EduTeacherController {
         EduTeacher teacher = eduTeacherService.getById(id);
         return Result.ok().data("teacher",teacher);
     }
+
+
 
 
     // 讲师修改功能

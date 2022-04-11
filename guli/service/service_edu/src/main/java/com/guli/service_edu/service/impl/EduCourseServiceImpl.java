@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.guli.service_edu.entity.EduChapter;
 import com.guli.service_edu.entity.EduCourse;
 import com.guli.service_edu.entity.EduCourseDescription;
-import com.guli.service_edu.entity.vo.CourseInfoForm;
-import com.guli.service_edu.entity.vo.CoursePublishVo;
-import com.guli.service_edu.entity.vo.CourseQuery;
+import com.guli.service_edu.entity.vo.*;
 import com.guli.service_edu.mapper.EduCourseMapper;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -19,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -174,5 +174,82 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
 
     }
+
+    /**
+     * 根据讲师id查询当前讲师的课程列表
+     * @param teacherId
+     * @return
+     */
+    @Override
+    public List<EduCourse> selectByTeacherId(String teacherId) {
+
+        QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<EduCourse>();
+
+        queryWrapper.eq("teacher_id", teacherId);
+        //按照最后更新时间倒序排列
+        queryWrapper.orderByDesc("gmt_modified");
+
+        List<EduCourse> courses = baseMapper.selectList(queryWrapper);
+        return courses;
+    }
+
+    @Override
+    public Map<String, Object> pageListWeb(Page<EduCourse> pageParam, CourseQueryVo courseQuery) {
+
+        QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(courseQuery.getSubjectParentId())) {
+            queryWrapper.eq("subject_parent_id", courseQuery.getSubjectParentId());
+        }
+
+        if (!StringUtils.isEmpty(courseQuery.getSubjectId())) {
+            queryWrapper.eq("subject_id", courseQuery.getSubjectId());
+        }
+
+        if (!StringUtils.isEmpty(courseQuery.getBuyCountSort())) {
+            queryWrapper.orderByDesc("buy_count");
+        }
+
+        if (!StringUtils.isEmpty(courseQuery.getGmtCreateSort())) {
+            queryWrapper.orderByDesc("gmt_create");
+        }
+
+        if (!StringUtils.isEmpty(courseQuery.getPriceSort())) {
+            queryWrapper.orderByDesc("price");
+        }
+
+        baseMapper.selectPage(pageParam, queryWrapper);
+
+        List<EduCourse> records = pageParam.getRecords();
+        long current = pageParam.getCurrent();
+        long pages = pageParam.getPages();
+        long size = pageParam.getSize();
+        long total = pageParam.getTotal();
+        boolean hasNext = pageParam.hasNext();
+        boolean hasPrevious = pageParam.hasPrevious();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("items", records);
+        map.put("current", current);
+        map.put("pages", pages);
+        map.put("size", size);
+        map.put("total", total);
+        map.put("hasNext", hasNext);
+        map.put("hasPrevious", hasPrevious);
+
+        return map;
+    }
+
+    @Override
+    public void updatePageViewCount(String id) {
+        EduCourse course = baseMapper.selectById(id);
+        course.setViewCount(course.getViewCount() + 1);
+        baseMapper.updateById(course);
+    }
+    @Override
+    public CourseWebVo selectInfoWebById(String id) {
+        this.updatePageViewCount(id);
+        return baseMapper.selectInfoWebById(id);
+    }
+
 
 }

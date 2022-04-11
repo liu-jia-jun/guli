@@ -43,7 +43,7 @@
               id="weixin"
               class="weixin"
               target="_blank"
-              href="http://qy.free.idcfengye.com/api/ucenter/weixinLogin/login"
+              href="http://localhost:8160/api/ucenter/wx/login"
             >
               <i class="iconfont icon-weixin" />
             </a>
@@ -65,6 +65,7 @@ import '~/assets/css/iconfont.css'
 import cookie from 'js-cookie'
 
 import loginApi from '@/api/login'
+import { userInfo } from 'os'
 export default {
   layout: 'sign',
 
@@ -83,6 +84,7 @@ export default {
       loginApi.submitLogin(this.user).then((response) => {
         if (response.data.success) {
           //把token存在cookie中、也可以放在localStorage中
+
           cookie.set('guli_token', JSON.stringify(response.data.data.token), {
             domain: 'localhost',
           })
@@ -93,6 +95,7 @@ export default {
             cookie.set('guli_ucenter', JSON.stringify(this.loginInfo), {
               domain: 'localhost',
             })
+
             //跳转页面
             window.location.href = '/'
           })

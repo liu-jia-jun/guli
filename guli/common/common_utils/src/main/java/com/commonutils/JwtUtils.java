@@ -84,6 +84,8 @@ public class JwtUtils {
      */
     public static String getMemberIdByJwtToken(HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
+        jwtToken = jwtToken.replaceAll("\"","");
+
         if (StringUtils.isEmpty(jwtToken)) {
             return "";
         }

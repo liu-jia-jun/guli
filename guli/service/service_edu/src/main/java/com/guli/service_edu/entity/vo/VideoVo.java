@@ -18,4 +18,5 @@ public class VideoVo implements Serializable {
     private String title;
     private Boolean free;
     private String videoOriginalName;
+    private String videoSourceId;// 阿里视频资源id
 }

@@ -3,11 +3,10 @@ package com.guli.service_edu.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.guli.service_edu.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.guli.service_edu.entity.vo.CourseInfoForm;
-import com.guli.service_edu.entity.vo.CoursePublishVo;
-import com.guli.service_edu.entity.vo.CourseQuery;
+import com.guli.service_edu.entity.vo.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -33,6 +32,22 @@ public interface EduCourseService extends IService<EduCourse> {
 
     Page<EduCourse> getPageListCourse(Long current, Long limit);
 
-
     boolean deleteCourseById(String id);
+
+    List<EduCourse> selectByTeacherId(String teacherId);
+
+    Map<String, Object> pageListWeb(Page<EduCourse> pageParam, CourseQueryVo courseQuery);
+
+    /**
+     * 获取课程信息
+     * @param id
+     * @return
+     */
+    CourseWebVo selectInfoWebById(String id);
+
+    /**
+     * 更新课程浏览数
+     * @param id
+     */
+    void updatePageViewCount(String id);
 }

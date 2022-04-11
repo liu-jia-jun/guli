@@ -23,4 +23,6 @@ public interface UcenterMemberService extends IService<UcenterMember> {
     void register(RegisterVo registerVo);
 
     UcenterMember getLoginInfo(String memberId);
+
+    UcenterMember getByOpenid(String openid);
 }
