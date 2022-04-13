@@ -2,16 +2,15 @@ package com.guli.service_edu.controller.front;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.commonutils.Result;
+import com.commonutils.bean.CourseWebVoOrder;
 import com.guli.service_edu.entity.EduCourse;
-import com.guli.service_edu.entity.vo.ChapterVo;
-import com.guli.service_edu.entity.vo.CourseQueryVo;
-import com.guli.service_edu.entity.vo.CourseWebVo;
-import com.guli.service_edu.entity.vo.SubjectTree;
+import com.guli.service_edu.entity.vo.*;
 import com.guli.service_edu.service.EduChapterService;
 import com.guli.service_edu.service.EduCourseService;
 import com.guli.service_edu.service.EduSubjectService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,11 +39,6 @@ public class CourseController {
 
             @ApiParam(name = "courseQuery", value = "查询对象", required = false)
             @RequestBody(required = false) CourseQueryVo courseQuery){
-
-
-        System.out.println("+++page+++"+page);
-        System.out.println("++++limit+++++++"+limit);
-        System.out.println("++++courseQuery+++++++"+courseQuery);
         Page<EduCourse> pageParam = new Page<EduCourse>(page, limit);
         Map<String, Object> map = courseService.pageListWeb(pageParam, courseQuery);
         return  Result.ok().data(map);
@@ -72,6 +66,15 @@ public class CourseController {
         List<ChapterVo> chapterVoList = chapterService.nestedList(courseId);
 
         return Result.ok().data("course", courseWebVo).data("chapterVoList", chapterVoList);
+    }
+
+
+    @GetMapping("getDto/{courseId}")
+    public CourseWebVoOrder getCourseInfoDto(@PathVariable String courseId) {
+        CourseInfoForm courseInfoForm = courseService.getCourseInfo(courseId);
+        CourseWebVoOrder courseInfo = new  CourseWebVoOrder();
+        BeanUtils.copyProperties(courseInfoForm,courseInfo);
+        return courseInfo;
     }
 
 }

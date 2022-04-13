@@ -1,14 +1,19 @@
-package com.guli.service_edu.controller;
+package com.guli.service_edu.controller.front;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.commonutils.JwtUtils;
+
 import com.commonutils.Result;
+import com.commonutils.bean.UcenterMemberCommentVo;
 import com.guli.service_edu.entity.EduComment;
+
+
 import com.guli.service_edu.service.EduCommentService;
 import com.guli.service_edu.service.UcenterClient;
-import com.guli.service_ucenter.entity.UcenterMember;
+
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,11 +81,12 @@ public class CommentFrontController {
         if(StringUtils.isEmpty(memberId)) {
             return Result.error().code(28004).message("请登录");
         }
+
         comment.setMemberId(memberId);
 
-        UcenterMember ucenterInfo = ucenterClient.getUcenterPay(memberId);
+        UcenterMemberCommentVo ucenterInfo = ucenterClient.getInfo(memberId);
 
-        comment.setNickname(ucenterInfo.getNickname());
+        comment.setNickname(ucenterInfo.getNickName());
         comment.setAvatar(ucenterInfo.getAvatar());
 
         commentService.save(comment);

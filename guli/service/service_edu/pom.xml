@@ -16,6 +16,8 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <dependencies>
+
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
@@ -29,6 +31,7 @@
                 <artifactId>easyexcel</artifactId>
                 <version>2.1.1</version>
             </dependency>
+
 
     </dependencies>
     <!-- 项目打包时会将java目录中的*.xml文件也进行打包 -->

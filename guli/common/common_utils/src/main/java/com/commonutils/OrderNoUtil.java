@@ -1,4 +1,4 @@
-package com.atguigu.orderservice.utils;
+package com.commonutils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

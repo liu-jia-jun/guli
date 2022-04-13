@@ -1,4 +1,4 @@
-package com.atguigu.orderservice.utils;
+package com.commonutils;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;

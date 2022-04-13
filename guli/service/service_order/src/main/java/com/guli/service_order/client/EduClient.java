@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient("service-edu")
 public interface EduClient {
     //根据课程id查询课程信息
-    @GetMapping("getDto/{courseId}")
+    @GetMapping("/eduservice/coursefront/getDto/{courseId}")
     public CourseWebVoOrder getCourseInfoDto(@PathVariable String courseId);
 }

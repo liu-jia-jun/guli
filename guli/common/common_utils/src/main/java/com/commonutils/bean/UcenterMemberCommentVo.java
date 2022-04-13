@@ -1,4 +1,4 @@
-package com.guli.service_ucenter.entity.vo;
+package com.commonutils.bean;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

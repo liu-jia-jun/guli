@@ -1,9 +1,15 @@
 package com.guli.service_order.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.commonutils.JwtUtils;
+import com.commonutils.Result;
+import com.guli.service_order.entity.TOrder;
+import com.guli.service_order.service.TOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -14,8 +20,23 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-04-13
  */
 @RestController
-@RequestMapping("/eduorder/t-order")
+@RequestMapping("/orderservice/order")
+@CrossOrigin
 public class TOrderController {
-
+    @Autowired
+    private TOrderService orderService;
+    //根据课程id和用户id创建订单，返回订单id
+    @PostMapping("createOrder/{courseId}")
+    public Result save(@PathVariable String courseId, HttpServletRequest request) {
+        String orderId = orderService.saveOrder(courseId, JwtUtils.getMemberIdByJwtToken(request));
+        return Result.ok().data("orderId", orderId);
+    }
+    @GetMapping("getOrder/{orderId}")
+    public Result get(@PathVariable String orderId) {
+        QueryWrapper<TOrder> wrapper = new QueryWrapper<>();
+        wrapper.eq("order_no",orderId);
+        TOrder order = orderService.getOne(wrapper);
+        return Result.ok().data("item", order);
+    }
 }
 

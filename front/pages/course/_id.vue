@@ -1,3 +1,4 @@
+
 <template>
   <div id="aCoursesList" class="bg-fa of">
     <!-- /课程详情 开始 -->
@@ -53,7 +54,7 @@
               <aside>
                 <span class="c-fff f-fM">课时数</span>
                 <br />
-                <h6 class="c-fff f-fM mt10">20</h6>
+                <h6 class="c-fff f-fM mt10">{{courseWebVo.lessonNum}}</h6>
               </aside>
             </li>
             <li>
@@ -61,7 +62,7 @@
               <aside>
                 <span class="c-fff f-fM">浏览数</span>
                 <br />
-                <h6 class="c-fff f-fM mt10">501</h6>
+                <h6 class="c-fff f-fM mt10">{{courseWebVo.viewCount}}</h6>
               </aside>
             </li>
           </ol>

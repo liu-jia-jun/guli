@@ -1,4 +1,4 @@
-package com.atguigu.commonutils.ordervo;
+package com.commonutils.bean;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;

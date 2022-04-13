@@ -1,6 +1,3 @@
-/**
- * @author 刘佳俊
- */
 
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -14,11 +11,10 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.junit.Test;
 
-
 /**
- * @author
- * @since 2018/12/13
+ * @author 刘佳俊
  */
+
 public class CommentCodeGenerator {
 
     @Test
@@ -56,7 +52,7 @@ public class CommentCodeGenerator {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("educms"); //模块名
+        pc.setModuleName("service_edu"); //模块名
         //包  com.atguigu.eduservice
         pc.setParent("com.guli");
         //包  com.atguigu.eduservice.controller
@@ -69,7 +65,7 @@ public class CommentCodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("edu_video","edu_course_description","edu_chapter","edu_course");
+        strategy.setInclude("edu_comment");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀

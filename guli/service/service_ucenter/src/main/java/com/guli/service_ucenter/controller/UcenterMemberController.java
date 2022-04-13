@@ -1,8 +1,11 @@
 package com.guli.service_ucenter.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.commonutils.JwtUtils;
 import com.commonutils.Result;
+import com.commonutils.bean.UcenterMemberCommentVo;
+import com.commonutils.bean.UcenterMemberOrder;
 import com.guli.service_ucenter.entity.UcenterMember;
 import com.guli.service_ucenter.entity.vo.LoginVo;
 import com.guli.service_ucenter.entity.vo.RegisterVo;
@@ -10,12 +13,11 @@ import com.guli.service_ucenter.service.UcenterMemberService;
 import com.service_base.exceptionhandler.GuliException;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-
-import static com.sun.webkit.perf.WCFontPerfLogger.log;
 
 /**
  * <p>
@@ -64,5 +66,24 @@ public class UcenterMemberController {
             throw new GuliException(20001,"error");
         }
     }
+    //根据token字符串获取用户信息
+    @PostMapping("getInfoUc/{id}")
+    public UcenterMemberCommentVo getInfoInComment(@PathVariable String id) {
+        //根据用户id获取用户信息
+        UcenterMember ucenterMember = memberService.getById(id);
+        UcenterMemberCommentVo memeber = new UcenterMemberCommentVo();
+        BeanUtils.copyProperties(ucenterMember,memeber);
+        return memeber;
+    }
+    //根据token字符串获取用户信息
+    @PostMapping("getInfoUc/{id}")
+    public UcenterMemberOrder getInfo(@PathVariable String id) {
+        //根据用户id获取用户信息
+        UcenterMember ucenterMember = memberService.getById(id);
+        UcenterMemberOrder memeber = new UcenterMemberOrder();
+        BeanUtils.copyProperties(ucenterMember,memeber);
+        return memeber;
+    }
+
 }
 

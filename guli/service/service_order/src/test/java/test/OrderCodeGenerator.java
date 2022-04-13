@@ -32,7 +32,7 @@ public class OrderCodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("E:\\code\\guli\\guli\\service\\service_edu" + "/src/main/java");
+        gc.setOutputDir("E:\\code\\guli\\guli\\service\\service_order" + "/src/main/java");
 
         gc.setAuthor("刘佳俊");
         gc.setOpen(false); //生成后是否打开资源管理器
@@ -58,9 +58,9 @@ public class OrderCodeGenerator {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("educms"); //模块名
+        pc.setModuleName("eduorder"); //模块名
         //包  com.atguigu.eduservice
-        pc.setParent("com.guli");
+        pc.setParent("com.guli.service_order");
         //包  com.atguigu.eduservice.controller
         pc.setController("controller");
         pc.setEntity("entity");
@@ -71,7 +71,7 @@ public class OrderCodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("edu_video","edu_course_description","edu_chapter","edu_course");
+        strategy.setInclude("t_order","t_pay_log");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀

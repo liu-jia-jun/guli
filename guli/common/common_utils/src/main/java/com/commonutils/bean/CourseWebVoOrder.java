@@ -1,4 +1,4 @@
-package com.atguigu.commonutils.ordervo;
+package com.commonutils.bean;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
