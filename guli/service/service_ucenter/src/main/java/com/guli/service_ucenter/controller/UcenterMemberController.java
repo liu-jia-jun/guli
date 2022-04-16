@@ -67,7 +67,7 @@ public class UcenterMemberController {
         }
     }
     //根据token字符串获取用户信息
-    @PostMapping("getInfoUc/{id}")
+    @PostMapping("getInfoUcInComment/{id}")
     public UcenterMemberCommentVo getInfoInComment(@PathVariable String id) {
         //根据用户id获取用户信息
         UcenterMember ucenterMember = memberService.getById(id);
@@ -76,8 +76,8 @@ public class UcenterMemberController {
         return memeber;
     }
     //根据token字符串获取用户信息
-    @PostMapping("getInfoUc/{id}")
-    public UcenterMemberOrder getInfo(@PathVariable String id) {
+    @PostMapping("getUserInfoOrder/{id}")
+    public UcenterMemberOrder getUserInfoOrder(@PathVariable String id) {
         //根据用户id获取用户信息
         UcenterMember ucenterMember = memberService.getById(id);
         UcenterMemberOrder memeber = new UcenterMemberOrder();

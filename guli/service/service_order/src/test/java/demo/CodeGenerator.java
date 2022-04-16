@@ -1,9 +1,4 @@
-package test;
-
-/**
- * @author 刘佳俊
- */
-
+package demo;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,12 +11,11 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.junit.Test;
 
-
 /**
  * @author
  * @since 2018/12/13
  */
-public class OrderCodeGenerator {
+public class CodeGenerator {
 
     @Test
     public void run() {
@@ -32,9 +26,9 @@ public class OrderCodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("E:\\code\\guli\\guli\\service\\service_order" + "/src/main/java");
+        gc.setOutputDir("E:\\work\\guli_parent\\service\\service_order" + "/src/main/java");
 
-        gc.setAuthor("刘佳俊");
+        gc.setAuthor("testjava");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
 
@@ -60,7 +54,7 @@ public class OrderCodeGenerator {
         PackageConfig pc = new PackageConfig();
         pc.setModuleName("eduorder"); //模块名
         //包  com.atguigu.eduservice
-        pc.setParent("com.guli.service_order");
+        pc.setParent("com.atguigu");
         //包  com.atguigu.eduservice.controller
         pc.setController("controller");
         pc.setEntity("entity");
@@ -74,7 +68,7 @@ public class OrderCodeGenerator {
         strategy.setInclude("t_order","t_pay_log");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
-        strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
+        strategy.setTablePrefix("t" + "_"); //生成实体时去掉表前缀
 
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段映射到实体的命名策略
         strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain = true) setter链式操作

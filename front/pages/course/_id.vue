@@ -34,8 +34,14 @@
                 <a class="c-fff vam" title="收藏" href="#">收藏</a>
               </span>
             </section>
-            <section class="c-attr-mt">
+            <!-- <section class="c-attr-mt">
+              <a href="#" title="立即观看" class="comm-btn c-btn-3" @click="createOrder()">立即观看</a>
+            </section>-->
+            <section v-if="isbuy || Number(courseWebVo.price)===0" class="c-attr-mt">
               <a href="#" title="立即观看" class="comm-btn c-btn-3">立即观看</a>
+            </section>
+            <section v-else class="c-attr-mt">
+              <a href="#" title="立即购买" class="comm-btn c-btn-3" @click="createOrder()">立即购买</a>
             </section>
           </section>
         </aside>
@@ -170,15 +176,49 @@
 </template>
 
 <script>
-import courseApi from '@/api/course'
+import order from '@/api/order'
+import course from '@/api/course'
 export default {
+  // asyncData({ params, error }) {
+  //   return courseApi.getById(params.id).then((response) => {
+  //     return {
+  //       courseWebVo: response.data.data.course,
+  //       chapterVideoList: response.data.data.chapterVoList,
+  //     }
+  //   })
+  // },
+  //和页面异步开始的
   asyncData({ params, error }) {
-    return courseApi.getById(params.id).then((response) => {
-      return {
-        courseWebVo: response.data.data.course,
-        chapterVideoList: response.data.data.chapterVoList,
-      }
-    })
+    return { courseId: params.id }
+  },
+  data() {
+    return {
+      courseWebVo: {},
+      chapterVideoList: [],
+      isbuy: false,
+    }
+  },
+  created() {
+    this.initCourseInfo()
+  },
+  methods: {
+    initCourseInfo() {
+      course.getById(this.courseId).then((response) => {
+        ;(this.courseWebVo = response.data.data.course),
+          (this.chapterVideoList = response.data.data.chapterVoList),
+          (this.isbuy = response.data.data.isbuy)
+      })
+      console.log(this.isbuy)
+    },
+    //根据课程id，调用接口方法生成订单
+    createOrder() {
+      order.createOrder(this.courseWebVo.id).then((response) => {
+        if (response.data.success) {
+          //订单创建成功，跳转到订单页面
+          this.$router.push({ path: '/order/' + response.data.data.orderId })
+        }
+      })
+    },
   },
 }
 </script>

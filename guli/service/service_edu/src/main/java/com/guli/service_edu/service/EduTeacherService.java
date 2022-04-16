@@ -17,4 +17,6 @@ import java.util.Map;
 public interface EduTeacherService extends IService<EduTeacher> {
 
     Map<String, Object> pageListWeb(Page<EduTeacher> pageParam);
+
+    String selectTeacherNameById(String teacherId);
 }

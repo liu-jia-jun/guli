@@ -1,9 +1,10 @@
-package com.guli.service_order.entity;
+package com.atguigu.eduorder.entity;
 
 import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.IdType;
+
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,14 +17,15 @@ import lombok.experimental.Accessors;
  * 支付日志表
  * </p>
  *
- * @author 刘佳俊
- * @since 2022-04-13
+ * @author testjava
+ * @since 2020-03-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="TPayLog对象", description="支付日志表")
-public class TPayLog implements Serializable {
+@TableName("t_pay_log")
+@ApiModel(value="PayLog对象", description="支付日志表")
+public class PayLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -55,9 +57,11 @@ public class TPayLog implements Serializable {
     private Boolean isDeleted;
 
     @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
     @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
 

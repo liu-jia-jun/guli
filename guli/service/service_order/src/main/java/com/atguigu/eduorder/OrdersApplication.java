@@ -1,25 +1,21 @@
-package com.guli.service_edu;
+package com.atguigu.eduorder;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
-/**
- * @author 刘佳俊
- */
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.service_base","com.guli","com.commonutils"})
-@MapperScan(basePackages = {"com.guli.service_edu.mapper"})
-@EnableDiscoveryClient//服务注册
+@EnableDiscoveryClient
 @EnableFeignClients
-@EnableHystrix
-public class EduApplication {
+@ComponentScan(basePackages = {"com.atguigu","com.service_base"})
+@MapperScan("com.atguigu.eduorder.mapper")
+public class OrdersApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EduApplication.class, args);
+        SpringApplication.run(OrdersApplication.class, args);
     }
 }

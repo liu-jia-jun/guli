@@ -9,11 +9,11 @@
       type="text/javascript"
       src="https://g.alicdn.com/de/prismplayer/2.9.19/aliplayer-min.js"
     ></script>
-
     <!-- 定义播放器dom -->
     <div id="J_prismPlayer" class="prism-player" />
   </div>
 </template>
+    
 <script>
 import vod from '@/api/vod'
 export default {

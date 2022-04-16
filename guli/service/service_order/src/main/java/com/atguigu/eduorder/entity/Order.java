@@ -1,9 +1,10 @@
-package com.guli.service_order.entity;
+package com.atguigu.eduorder.entity;
 
 import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.IdType;
+
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,14 +17,15 @@ import lombok.experimental.Accessors;
  * 订单
  * </p>
  *
- * @author 刘佳俊
- * @since 2022-04-13
+ * @author testjava
+ * @since 2020-03-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="TOrder对象", description="订单")
-public class TOrder implements Serializable {
+@TableName("t_order")
+@ApiModel(value="Order对象", description="订单")
+public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -67,9 +69,11 @@ public class TOrder implements Serializable {
     private Boolean isDeleted;
 
     @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
     @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
 
