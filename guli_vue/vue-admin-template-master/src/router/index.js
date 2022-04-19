@@ -22,217 +22,236 @@ import Layout from '../views/layout/Layout'
   }
 **/
 export const constantRouterMap = [{
-        path: '/login',
+    path: '/login',
+    component: () =>
+        import('@/views/login/index'),
+    hidden: true
+},
+{
+    path: '/404',
+    component: () =>
+        import('@/views/404'),
+    hidden: true
+},
+
+{
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    name: 'Dashboard',
+    hidden: true,
+    children: [{
+        path: 'dashboard',
         component: () =>
-            import ('@/views/login/index'),
+            import('@/views/dashboard/index')
+    }]
+},
+
+
+{
+    path: "/teacher",
+    component: Layout,
+    name: "teacher",
+    meta: { title: "讲师管理", icon: "example" },
+    children: [{
+        path: "/teacher/list",
+        component: () =>
+            import("@/views/edu/teacher/list"),
+        name: "teacherlist",
+        meta: { title: '讲师列表', icon: 'table' }
+    },
+    {
+        path: "/teacher/save",
+        component: () =>
+            import("@/views/edu/teacher/save"),
+        name: "teachersave",
+        meta: { title: '添加讲师', icon: 'table' }
+    },
+    {
+        path: "/teacher/update/:id",
+        component: () =>
+            import("@/views/edu/teacher/save"),
+        name: "teachersave",
+        meta: { title: '添加讲师', icon: 'table' },
+        hidden: true
+    },
+    ]
+},
+
+
+{
+    path: '/subject',
+    component: Layout,
+    redirect: '/subject/list',
+    name: 'subject',
+    meta: { title: '课程分类管理', icon: 'example' },
+    children: [{
+        path: 'list',
+        name: 'list',
+        component: () =>
+            import('@/views/edu/subject/list'),
+        meta: { title: '课程分类列表', icon: 'tree' }
+    },
+    {
+        path: 'save',
+        name: 'save',
+        component: () =>
+            import('@/views/edu/subject/save'),
+        meta: { title: '课程分类上传', icon: 'table' }
+    }
+    ]
+},
+{
+    path: '/edu/course',
+    component: Layout,
+    redirect: '/course/list',
+    name: 'course',
+    meta: { title: '课程管理', icon: 'example' },
+    children: [{
+        path: 'list',
+        name: 'EduCourseList',
+        component: () =>
+            import('@/views/edu/course/list'),
+        meta: { title: '课程列表' }
+    },
+    {
+        path: 'info',
+        name: 'EduCourseInfo',
+        component: () =>
+            import('@/views/edu/course/info'),
+        meta: { title: '发布课程' }
+    },
+    {
+        path: 'info/:id',
+        name: 'EduCourseInfoEdit',
+        component: () =>
+            import('@/views/edu/course/info'),
+        meta: { title: '编辑课程基本信息', noCache: true },
         hidden: true
     },
     {
-        path: '/404',
+        path: 'chapter/:id',
+        name: 'EduCourseChapterEdit',
         component: () =>
-            import ('@/views/404'),
+            import('@/views/edu/course/chapter'),
+        meta: { title: '编辑课程大纲', noCache: true },
         hidden: true
     },
-
     {
-        path: '/',
-        component: Layout,
-        redirect: '/dashboard',
-        name: 'Dashboard',
-        hidden: true,
+        path: 'publish/:id',
+        name: 'EduCoursePublishEdit',
+        component: () =>
+            import('@/views/edu/course/publish'),
+        meta: { title: '发布课程', noCache: true },
+        hidden: true
+    }
+    ]
+},
+{
+    path: '/statistics/daily',
+    component: Layout,
+    redirect: '/statistics/daily/create',
+    name: 'Statistics',
+    meta: { title: '统计分析', icon: 'example' },
+    children: [
+        {
+            path: 'create',
+            name: 'StatisticsDailyCreate',
+            component: () => import('@/views/statistics/daily/create'),
+            meta: { title: '生成统计', icon: "nested" }
+        }, {
+            path: 'show',
+            name: 'StatisticsDailyShow',
+            component: () => import('@/views/statistics/daily/show'),
+            meta: { title: '数据展示', icon: "nested" }
+        }
+    ]
+},
+
+{
+    path: '/form',
+    component: Layout,
+    children: [{
+        path: 'index',
+        name: 'Form',
+        component: () =>
+            import('@/views/form/index'),
+        meta: { title: 'Form', icon: 'form' }
+    }]
+},
+
+{
+    path: '/nested',
+    component: Layout,
+    redirect: '/nested/menu1',
+    name: 'Nested',
+    meta: {
+        title: 'Nested',
+        icon: 'nested'
+    },
+    children: [{
+        path: 'menu1',
+        component: () =>
+            import('@/views/nested/menu1/index'), // Parent router-view
+        name: 'Menu1',
+        meta: { title: 'Menu1' },
         children: [{
-            path: 'dashboard',
+            path: 'menu1-1',
             component: () =>
-                import ('@/views/dashboard/index')
-        }]
-    },
-
-
-    {
-        path: "/teacher",
-        component: Layout,
-        name: "teacher",
-        meta: { title: "讲师管理", icon: "example" },
-        children: [{
-                path: "/teacher/list",
-                component: () =>
-                    import ("@/views/edu/teacher/list"),
-                name: "teacherlist",
-                meta: { title: '讲师列表', icon: 'table' }
-            },
-            {
-                path: "/teacher/save",
-                component: () =>
-                    import ("@/views/edu/teacher/save"),
-                name: "teachersave",
-                meta: { title: '添加讲师', icon: 'table' }
-            },
-            {
-                path: "/teacher/update/:id",
-                component: () =>
-                    import ("@/views/edu/teacher/save"),
-                name: "teachersave",
-                meta: { title: '添加讲师', icon: 'table' },
-                hidden: true
-            },
-        ]
-    },
-
-
-    {
-        path: '/subject',
-        component: Layout,
-        redirect: '/subject/list',
-        name: 'subject',
-        meta: { title: '课程分类管理', icon: 'example' },
-        children: [{
-                path: 'list',
-                name: 'list',
-                component: () =>
-                    import ('@/views/edu/subject/list'),
-                meta: { title: '课程分类列表', icon: 'tree' }
-            },
-            {
-                path: 'save',
-                name: 'save',
-                component: () =>
-                    import ('@/views/edu/subject/save'),
-                meta: { title: '课程分类上传', icon: 'table' }
-            }
-        ]
-    },
-    {
-        path: '/edu/course',
-        component: Layout,
-        redirect: '/course/list',
-        name: 'course',
-        meta: { title: '课程管理', icon: 'example' },
-        children: [{
-                path: 'list',
-                name: 'EduCourseList',
-                component: () =>
-                    import ('@/views/edu/course/list'),
-                meta: { title: '课程列表' }
-            },
-            {
-                path: 'info',
-                name: 'EduCourseInfo',
-                component: () =>
-                    import ('@/views/edu/course/info'),
-                meta: { title: '发布课程' }
-            },
-            {
-                path: 'info/:id',
-                name: 'EduCourseInfoEdit',
-                component: () =>
-                    import ('@/views/edu/course/info'),
-                meta: { title: '编辑课程基本信息', noCache: true },
-                hidden: true
-            },
-            {
-                path: 'chapter/:id',
-                name: 'EduCourseChapterEdit',
-                component: () =>
-                    import ('@/views/edu/course/chapter'),
-                meta: { title: '编辑课程大纲', noCache: true },
-                hidden: true
-            },
-            {
-                path: 'publish/:id',
-                name: 'EduCoursePublishEdit',
-                component: () =>
-                    import ('@/views/edu/course/publish'),
-                meta: { title: '发布课程', noCache: true },
-                hidden: true
-            }
-        ]
-    },
-
-
-    {
-        path: '/form',
-        component: Layout,
-        children: [{
-            path: 'index',
-            name: 'Form',
-            component: () =>
-                import ('@/views/form/index'),
-            meta: { title: 'Form', icon: 'form' }
-        }]
-    },
-
-    {
-        path: '/nested',
-        component: Layout,
-        redirect: '/nested/menu1',
-        name: 'Nested',
-        meta: {
-            title: 'Nested',
-            icon: 'nested'
+                import('@/views/nested/menu1/menu1-1'),
+            name: 'Menu1-1',
+            meta: { title: 'Menu1-1' }
         },
-        children: [{
-                path: 'menu1',
+        {
+            path: 'menu1-2',
+            component: () =>
+                import('@/views/nested/menu1/menu1-2'),
+            name: 'Menu1-2',
+            meta: { title: 'Menu1-2' },
+            children: [{
+                path: 'menu1-2-1',
                 component: () =>
-                    import ('@/views/nested/menu1/index'), // Parent router-view
-                name: 'Menu1',
-                meta: { title: 'Menu1' },
-                children: [{
-                        path: 'menu1-1',
-                        component: () =>
-                            import ('@/views/nested/menu1/menu1-1'),
-                        name: 'Menu1-1',
-                        meta: { title: 'Menu1-1' }
-                    },
-                    {
-                        path: 'menu1-2',
-                        component: () =>
-                            import ('@/views/nested/menu1/menu1-2'),
-                        name: 'Menu1-2',
-                        meta: { title: 'Menu1-2' },
-                        children: [{
-                                path: 'menu1-2-1',
-                                component: () =>
-                                    import ('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                                name: 'Menu1-2-1',
-                                meta: { title: 'Menu1-2-1' }
-                            },
-                            {
-                                path: 'menu1-2-2',
-                                component: () =>
-                                    import ('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                                name: 'Menu1-2-2',
-                                meta: { title: 'Menu1-2-2' }
-                            }
-                        ]
-                    },
-                    {
-                        path: 'menu1-3',
-                        component: () =>
-                            import ('@/views/nested/menu1/menu1-3'),
-                        name: 'Menu1-3',
-                        meta: { title: 'Menu1-3' }
-                    }
-                ]
+                    import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+                name: 'Menu1-2-1',
+                meta: { title: 'Menu1-2-1' }
             },
             {
-                path: 'menu2',
+                path: 'menu1-2-2',
                 component: () =>
-                    import ('@/views/nested/menu2/index'),
-                meta: { title: 'menu2' }
+                    import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+                name: 'Menu1-2-2',
+                meta: { title: 'Menu1-2-2' }
             }
+            ]
+        },
+        {
+            path: 'menu1-3',
+            component: () =>
+                import('@/views/nested/menu1/menu1-3'),
+            name: 'Menu1-3',
+            meta: { title: 'Menu1-3' }
+        }
         ]
     },
-
     {
-        path: 'external-link',
-        component: Layout,
-        children: [{
-            path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-            meta: { title: 'External Link', icon: 'link' }
-        }]
-    },
+        path: 'menu2',
+        component: () =>
+            import('@/views/nested/menu2/index'),
+        meta: { title: 'menu2' }
+    }
+    ]
+},
 
-    { path: '*', redirect: '/404', hidden: true }
+{
+    path: 'external-link',
+    component: Layout,
+    children: [{
+        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+        meta: { title: 'External Link', icon: 'link' }
+    }]
+},
+
+{ path: '*', redirect: '/404', hidden: true }
 ]
 
 export default new Router({

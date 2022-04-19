@@ -84,6 +84,12 @@ public class UcenterMemberController {
         BeanUtils.copyProperties(ucenterMember,memeber);
         return memeber;
     }
+    @GetMapping(value = "countregister/{day}")
+    public Result registerCount(
+            @PathVariable String day){
+        Integer count = memberService.countRegisterByDay(day);
+        return Result.ok().data("countRegister", count);
+    }
 
 }
 
